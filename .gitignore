@@ -30,3 +30,6 @@ coverage/
 # PWA
 sw.js
 workbox-*.js
+
+# storybook
+storybook-static/

@@ -137,16 +137,16 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T039 [P] [US3] Component test for MarkingMode in `src/components/tracker/marking-mode.test.tsx` - test auto-advance behavior
+- [X] T039 [P] [US3] Component test for MarkingMode in `src/components/tracker/marking-mode.test.tsx` - test auto-advance behavior
 
 ### Implementation for User Story 3
 
-- [ ] T040 [US3] Create MarkingMode component in `src/components/tracker/marking-mode.tsx` with focused entity display
-- [ ] T041 [US3] Implement auto-advance logic in MarkingMode (advance to next unmarked after marking)
-- [ ] T042 [US3] Add completion summary in MarkingMode when all entities marked
-- [ ] T043 [US3] Add "go back" navigation to correct previous marks
-- [ ] T044 [US3] Create sequential marking route in `src/routes/tracker/$sheetId.mark.tsx`
-- [ ] T045 [P] [US3] Create Storybook story for MarkingMode in `src/components/tracker/marking-mode.stories.tsx`
+- [X] T040 [US3] Create MarkingMode component in `src/components/tracker/marking-mode.tsx` with focused entity display
+- [X] T041 [US3] Implement auto-advance logic in MarkingMode (advance to next unmarked after marking)
+- [X] T042 [US3] Add completion summary in MarkingMode when all entities marked
+- [X] T043 [US3] Add "go back" navigation to correct previous marks
+- [X] T044 [US3] Create sequential marking route in `src/routes/tracker/$sheetId.mark.tsx`
+- [X] T045 [P] [US3] Create Storybook story for MarkingMode in `src/components/tracker/marking-mode.stories.tsx`
 
 **Checkpoint**: Sequential attendance marking works - primary use case complete
 
