@@ -33,3 +33,5 @@ workbox-*.js
 
 # storybook
 storybook-static/
+
+.playwright-mcp/

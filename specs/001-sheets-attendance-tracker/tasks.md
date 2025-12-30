@@ -160,16 +160,16 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 4 ⚠️
 
-- [ ] T046 [P] [US4] Component test for SheetView in `src/components/tracker/sheet-view.test.tsx` - test direct cell editing
+- [X] T046 [P] [US4] Component test for SheetView in `src/components/tracker/sheet-view.test.tsx` - test direct cell editing
 
 ### Implementation for User Story 4
 
-- [ ] T047 [US4] Implement useSheet hook in `src/hooks/tracker/useSheet.ts` with entities, attributes, and cell values
-- [ ] T048 [US4] Create AttributeHeader component in `src/components/tracker/attribute-header.tsx` with type indicator
-- [ ] T049 [US4] Create SheetView component in `src/components/tracker/sheet-view.tsx` with scrollable grid layout
-- [ ] T050 [US4] Implement search/filter in SheetView for finding entities quickly
-- [ ] T051 [US4] Create sheet view route in `src/routes/tracker/$sheetId.tsx`
-- [ ] T052 [P] [US4] Create Storybook story for SheetView in `src/components/tracker/sheet-view.stories.tsx`
+- [X] T047 [US4] Implement useSheet hook in `src/hooks/tracker/useSheet.ts` with entities, attributes, and cell values
+- [X] T048 [US4] Create AttributeHeader component in `src/components/tracker/attribute-header.tsx` with type indicator
+- [X] T049 [US4] Create SheetView component in `src/components/tracker/sheet-view.tsx` with scrollable grid layout
+- [X] T050 [US4] Implement search/filter in SheetView for finding entities quickly
+- [X] T051 [US4] Create sheet view route in `src/routes/tracker/$sheetId.tsx`
+- [X] T052 [P] [US4] Create Storybook story for SheetView in `src/components/tracker/sheet-view.stories.tsx`
 
 **Checkpoint**: Both marking modes (sequential and random) work - all P1 user stories complete
 
@@ -183,16 +183,16 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 6 ⚠️
 
-- [ ] T053 [P] [US6] Component test for SheetCard in `src/components/tracker/sheet-card.test.tsx`
-- [ ] T054 [P] [US6] Component test for TrackerHome in `src/routes/tracker/index.test.tsx`
+- [X] T053 [P] [US6] Component test for SheetCard in `src/components/tracker/sheet-card.test.tsx`
+- [X] T054 [P] [US6] Component test for TrackerHome in `src/routes/tracker/index.test.tsx`
 
 ### Implementation for User Story 6
 
-- [ ] T055 [US6] Implement useSheets hook in `src/hooks/tracker/useSheets.ts` with useLiveQuery sorted by updatedAt
-- [ ] T056 [US6] Create SheetCard component in `src/components/tracker/sheet-card.tsx` with preview info
-- [ ] T057 [US6] Create TrackerHome page in `src/routes/tracker/index.tsx` with sheet list and "Create New" button
-- [ ] T058 [US6] Add search functionality to TrackerHome for finding sheets by name
-- [ ] T059 [P] [US6] Create Storybook story for SheetCard in `src/components/tracker/sheet-card.stories.tsx`
+- [X] T055 [US6] Implement useSheets hook in `src/hooks/tracker/useSheets.ts` with useLiveQuery sorted by updatedAt
+- [X] T056 [US6] Create SheetCard component in `src/components/tracker/sheet-card.tsx` with preview info
+- [X] T057 [US6] Create TrackerHome page in `src/routes/tracker/index.tsx` with sheet list and "Create New" button
+- [X] T058 [US6] Add search functionality to TrackerHome for finding sheets by name
+- [X] T059 [P] [US6] Create Storybook story for SheetCard in `src/components/tracker/sheet-card.stories.tsx`
 
 **Checkpoint**: Navigation between sheets works - app is usable for multi-sheet scenarios
 

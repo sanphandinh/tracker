@@ -58,6 +58,7 @@
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.14",
     "@tanstack/devtools-event-client": "^0.4.0",
     "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",

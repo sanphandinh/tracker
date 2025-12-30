@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrackerIndexRouteImport } from './routes/tracker/index'
 import { Route as TrackerNewRouteImport } from './routes/tracker/new'
 import { Route as TrackerSheetIdRouteImport } from './routes/tracker/$sheetId'
 import { Route as DemoTrpcTodoRouteImport } from './routes/demo/trpc-todo'
@@ -41,6 +42,11 @@ import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ss
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerIndexRoute = TrackerIndexRouteImport.update({
+  id: '/tracker/',
+  path: '/tracker/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackerNewRoute = TrackerNewRouteImport.update({
@@ -191,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -252,6 +260,7 @@ export interface FileRoutesById {
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker/': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -284,6 +293,7 @@ export interface FileRouteTypes {
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
     | '/tracker/new'
+    | '/tracker'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -314,6 +324,7 @@ export interface FileRouteTypes {
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
     | '/tracker/new'
+    | '/tracker'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -344,6 +355,7 @@ export interface FileRouteTypes {
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
     | '/tracker/new'
+    | '/tracker/'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -375,6 +387,7 @@ export interface RootRouteChildren {
   DemoTrpcTodoRoute: typeof DemoTrpcTodoRoute
   TrackerSheetIdRoute: typeof TrackerSheetIdRouteWithChildren
   TrackerNewRoute: typeof TrackerNewRoute
+  TrackerIndexRoute: typeof TrackerIndexRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   DemoApiAvailableProvidersRoute: typeof DemoApiAvailableProvidersRoute
   DemoApiImageRoute: typeof DemoApiImageRoute
@@ -401,6 +414,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker/': {
+      id: '/tracker/'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof TrackerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tracker/new': {
@@ -618,6 +638,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTrpcTodoRoute: DemoTrpcTodoRoute,
   TrackerSheetIdRoute: TrackerSheetIdRouteWithChildren,
   TrackerNewRoute: TrackerNewRoute,
+  TrackerIndexRoute: TrackerIndexRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   DemoApiAvailableProvidersRoute: DemoApiAvailableProvidersRoute,
   DemoApiImageRoute: DemoApiImageRoute,
