@@ -27,11 +27,11 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 **Purpose**: Project initialization, dependencies, and infrastructure
 
-- [ ] T001 Install dependencies: `bun add dexie dexie-react-hooks xlsx && bun add -D vite-plugin-pwa`
-- [ ] T002 [P] Create tracker directory structure: `src/lib/tracker/`, `src/hooks/tracker/`, `src/components/tracker/`, `src/routes/tracker/`
-- [ ] T003 [P] Add PWA types to tsconfig.json: add `"vite-plugin-pwa/react"` to compilerOptions.types
-- [ ] T004 [P] Create PWA icons placeholder in `public/icons/` (icon-192.png, icon-512.png)
-- [ ] T005 Configure vite-plugin-pwa in `vite.config.ts` with manifest and workbox settings per research.md
+- [X] T001 Install dependencies: `bun add dexie dexie-react-hooks xlsx && bun add -D vite-plugin-pwa`
+- [X] T002 [P] Create tracker directory structure: `src/lib/tracker/`, `src/hooks/tracker/`, `src/components/tracker/`, `src/routes/tracker/`
+- [X] T003 [P] Add PWA types to tsconfig.json: add `"vite-plugin-pwa/react"` to compilerOptions.types
+- [X] T004 [P] Create PWA icons placeholder in `public/icons/` (icon-192.png, icon-512.png)
+- [X] T005 Configure vite-plugin-pwa in `vite.config.ts` with manifest and workbox settings per research.md
 
 ---
 
@@ -41,11 +41,11 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create TypeScript interfaces in `src/lib/tracker/types.ts` per data-model.md
-- [ ] T007 Create Zod validation schemas in `src/lib/tracker/schemas.ts` per data-model.md
-- [ ] T008 Create Dexie database definition in `src/lib/tracker/db.ts` with TrackerDatabase class
-- [ ] T009 [P] Create base test utilities in `src/lib/tracker/db.test.ts` (setup/teardown helpers for IndexedDB)
-- [ ] T010 [P] Create tracker layout route in `src/routes/tracker.tsx` with mobile-optimized container
+- [X] T006 Create TypeScript interfaces in `src/lib/tracker/types.ts` per data-model.md
+- [X] T007 Create Zod validation schemas in `src/lib/tracker/schemas.ts` per data-model.md
+- [X] T008 Create Dexie database definition in `src/lib/tracker/db.ts` with TrackerDatabase class
+- [X] T009 [P] Create base test utilities in `src/lib/tracker/db.test.ts` (setup/teardown helpers for IndexedDB)
+- [X] T010 [P] Create shared layout container in `src/routes/__root.tsx` (mobile-optimized) instead of separate `/tracker` route
 
 **Checkpoint**: Foundation ready - Dexie database works, types defined, user story implementation can begin
 
