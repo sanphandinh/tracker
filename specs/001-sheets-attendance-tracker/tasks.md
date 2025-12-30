@@ -110,20 +110,20 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 5 ⚠️
 
-- [ ] T028 [P] [US5] Unit test for cell value operations in `src/lib/tracker/db.test.ts` - test updateCellValue, getCellValue
-- [ ] T029 [P] [US5] Component test for CellInput in `src/components/tracker/cell-input.test.tsx` - test all 5 attribute types
+- [X] T028 [P] [US5] Unit test for cell value operations in `src/lib/tracker/db.test.ts` - test updateCellValue, getCellValue
+- [X] T029 [P] [US5] Component test for CellInput in `src/components/tracker/cell-input.test.tsx` - test all 5 attribute types
 
 ### Implementation for User Story 5
 
-- [ ] T030 [US5] Implement cell value functions in `src/lib/tracker/db.ts` (updateCellValue, getCellValue, getCellValuesForEntity)
-- [ ] T031 [US5] Implement useCellValues hook in `src/hooks/tracker/useCellValues.ts` with optimistic updates
-- [ ] T032 [US5] Create CellInput component in `src/components/tracker/cell-input.tsx` with cva variants per research.md
-- [ ] T033 [US5] Implement boolean toggle behavior in CellInput (single-tap, no modal, null→true→false cycle)
-- [ ] T034 [US5] Implement boolean-currency toggle behavior in CellInput (same as boolean)
-- [ ] T035 [US5] Implement dropdown picker in CellInput with accessible select
-- [ ] T036 [US5] Implement number input in CellInput with numeric keyboard pattern
-- [ ] T037 [US5] Implement text input in CellInput with inline editing
-- [ ] T038 [P] [US5] Create Storybook stories for CellInput variants in `src/components/tracker/cell-input.stories.tsx`
+- [X] T030 [US5] Implement cell value functions in `src/lib/tracker/db.ts` (updateCellValue, getCellValue, getCellValuesForEntity)
+- [X] T031 [US5] Implement useCellValues hook in `src/hooks/tracker/useCellValues.ts` with optimistic updates
+- [X] T032 [US5] Create CellInput component in `src/components/tracker/cell-input.tsx` with cva variants per research.md
+- [X] T033 [US5] Implement boolean toggle behavior in CellInput (single-tap, no modal, null→true→false cycle)
+- [X] T034 [US5] Implement boolean-currency toggle behavior in CellInput (same as boolean)
+- [X] T035 [US5] Implement dropdown picker in CellInput with accessible select
+- [X] T036 [US5] Implement number input in CellInput with numeric keyboard pattern
+- [X] T037 [US5] Implement text input in CellInput with inline editing
+- [X] T038 [P] [US5] Create Storybook stories for CellInput variants in `src/components/tracker/cell-input.stories.tsx`
 
 **Checkpoint**: All cell types work with appropriate input methods - core marking infrastructure complete
 

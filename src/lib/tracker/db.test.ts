@@ -6,8 +6,11 @@ import {
   addEntity,
   bulkAddEntities,
   reorderEntities,
+  updateCellValue,
+  getCellValue,
+  getCellValuesForEntity,
+  addAttribute,
 } from './db'
-import type { TrackingSheet, Entity } from './types'
 
 /**
  * Setup function to clear database before each test
@@ -125,6 +128,135 @@ describe('TrackerDatabase', () => {
       expect(ordered[1].position).toBe(1)
       expect(ordered[2].id).toBe(entities[1].id)
       expect(ordered[2].position).toBe(2)
+    })
+  })
+
+  describe('updateCellValue', () => {
+    it('should create a new cell value when none exists', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+      const attributes = await db.attributes.where('sheetId').equals(sheet.id).toArray()
+      const attributeId = attributes[0].id
+
+      await updateCellValue(entity.id, attributeId, true)
+
+      const cell = await db.cellValues
+        .where('[entityId+attributeId]')
+        .equals([entity.id, attributeId])
+        .first()
+
+      expect(cell).toBeDefined()
+      expect(cell?.value).toBe(true)
+    })
+
+    it('should update existing cell value', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+      const attributes = await db.attributes.where('sheetId').equals(sheet.id).toArray()
+      const attributeId = attributes[0].id
+
+      await updateCellValue(entity.id, attributeId, true)
+      await updateCellValue(entity.id, attributeId, false)
+
+      const cell = await db.cellValues
+        .where('[entityId+attributeId]')
+        .equals([entity.id, attributeId])
+        .first()
+
+      expect(cell?.value).toBe(false)
+    })
+
+    it('should handle different value types', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+
+      // Add attributes of different types
+      const boolAttr = await db.attributes.where('sheetId').equals(sheet.id).first()
+      const numAttr = await addAttribute(sheet.id, 'Count', 'number')
+      const textAttr = await addAttribute(sheet.id, 'Notes', 'text')
+
+      // Test boolean
+      await updateCellValue(entity.id, boolAttr!.id, true)
+      let cell = await getCellValue(entity.id, boolAttr!.id)
+      expect(cell).toBe(true)
+
+      // Test number
+      await updateCellValue(entity.id, numAttr.id, 42)
+      cell = await getCellValue(entity.id, numAttr.id)
+      expect(cell).toBe(42)
+
+      // Test text
+      await updateCellValue(entity.id, textAttr.id, 'test note')
+      cell = await getCellValue(entity.id, textAttr.id)
+      expect(cell).toBe('test note')
+
+      // Test null
+      await updateCellValue(entity.id, boolAttr!.id, null)
+      cell = await getCellValue(entity.id, boolAttr!.id)
+      expect(cell).toBeNull()
+    })
+
+    it('should throw error for non-existent entity', async () => {
+      const fakeEntityId = crypto.randomUUID()
+      const fakeAttributeId = crypto.randomUUID()
+
+      await expect(updateCellValue(fakeEntityId, fakeAttributeId, true)).rejects.toThrow('Entity not found')
+    })
+  })
+
+  describe('getCellValue', () => {
+    it('should return null for non-existent cell', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+      const attributes = await db.attributes.where('sheetId').equals(sheet.id).toArray()
+      const attributeId = attributes[0].id
+
+      const value = await getCellValue(entity.id, attributeId)
+
+      expect(value).toBeNull()
+    })
+
+    it('should return correct value for existing cell', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+      const attributes = await db.attributes.where('sheetId').equals(sheet.id).toArray()
+      const attributeId = attributes[0].id
+
+      await updateCellValue(entity.id, attributeId, true)
+      const value = await getCellValue(entity.id, attributeId)
+
+      expect(value).toBe(true)
+    })
+  })
+
+  describe('getCellValuesForEntity', () => {
+    it('should return all cell values for an entity', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+
+      const attr1 = await db.attributes.where('sheetId').equals(sheet.id).first()
+      const attr2 = await addAttribute(sheet.id, 'Count', 'number')
+      const attr3 = await addAttribute(sheet.id, 'Notes', 'text')
+
+      await updateCellValue(entity.id, attr1!.id, true)
+      await updateCellValue(entity.id, attr2.id, 42)
+      await updateCellValue(entity.id, attr3.id, 'test')
+
+      const cells = await getCellValuesForEntity(entity.id)
+
+      expect(cells).toHaveLength(3)
+      expect(cells.some(c => c.value === true)).toBe(true)
+      expect(cells.some(c => c.value === 42)).toBe(true)
+      expect(cells.some(c => c.value === 'test')).toBe(true)
+    })
+
+    it('should return empty array for entity with no values', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entity = await addEntity(sheet.id, 'John')
+
+      const cells = await getCellValuesForEntity(entity.id)
+
+      expect(cells).toHaveLength(0)
     })
   })
 })
