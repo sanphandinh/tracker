@@ -84,17 +84,17 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T020 [P] [US2] Unit test for entity CRUD in `src/lib/tracker/db.test.ts` - test addEntity, bulkAddEntities, reorderEntities
-- [ ] T021 [P] [US2] Component test for AddEntityForm in `src/components/tracker/add-entity-form.test.tsx`
+- [X] T020 [P] [US2] Unit test for entity CRUD in `src/lib/tracker/db.test.ts` - test addEntity, bulkAddEntities, reorderEntities
+- [X] T021 [P] [US2] Component test for AddEntityForm in `src/components/tracker/add-entity-form.test.tsx`
 
 ### Implementation for User Story 2
 
-- [ ] T022 [US2] Implement entity CRUD functions in `src/lib/tracker/db.ts` (addEntity, bulkAddEntities, updateEntity, deleteEntity, reorderEntities)
-- [ ] T023 [US2] Implement useEntities hook in `src/hooks/tracker/useEntities.ts` with useLiveQuery
-- [ ] T024 [P] [US2] Create AddEntityForm component in `src/components/tracker/add-entity-form.tsx` with bulk add support
-- [ ] T025 [P] [US2] Create EntityRow component in `src/components/tracker/entity-row.tsx` with drag handle for reordering
-- [ ] T026 [US2] Implement drag-and-drop reordering in EntityRow using @dnd-kit or native drag
-- [ ] T027 [P] [US2] Create Storybook story for EntityRow in `src/components/tracker/entity-row.stories.tsx`
+- [X] T022 [US2] Implement entity CRUD functions in `src/lib/tracker/db.ts` (addEntity, bulkAddEntities, updateEntity, deleteEntity, reorderEntities)
+- [X] T023 [US2] Implement useEntities hook in `src/hooks/tracker/useEntities.ts` with useLiveQuery
+- [X] T024 [P] [US2] Create AddEntityForm component in `src/components/tracker/add-entity-form.tsx` with bulk add support
+- [X] T025 [P] [US2] Create EntityRow component in `src/components/tracker/entity-row.tsx` with drag handle for reordering
+- [X] T026 [US2] Implement drag-and-drop reordering in EntityRow using @dnd-kit or native drag
+- [X] T027 [P] [US2] Create Storybook story for EntityRow in `src/components/tracker/entity-row.stories.tsx`
 
 **Checkpoint**: User can populate sheets with entities - ready for marking
 

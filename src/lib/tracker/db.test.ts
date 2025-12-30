@@ -1,6 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import 'fake-indexeddb/auto'
-import { db, createSheet, addEntity, bulkAddEntities } from './db'
+import {
+  db,
+  createSheet,
+  addEntity,
+  bulkAddEntities,
+  reorderEntities,
+} from './db'
 import type { TrackingSheet, Entity } from './types'
 
 /**
@@ -88,6 +94,37 @@ describe('TrackerDatabase', () => {
       expect(entities[0].position).toBe(0)
       expect(entities[1].position).toBe(1)
       expect(entities[2].position).toBe(2)
+    })
+
+    it('should append entities after existing ones', async () => {
+      const sheet = await createSheet('Test Sheet')
+      await bulkAddEntities(sheet.id, ['A', 'B'])
+
+      const more = await bulkAddEntities(sheet.id, ['C', 'D'])
+
+      expect(more[0].position).toBe(2)
+      expect(more[1].position).toBe(3)
+    })
+  })
+
+  describe('reorderEntities', () => {
+    it('should update positions based on provided order', async () => {
+      const sheet = await createSheet('Test Sheet')
+      const entities = await bulkAddEntities(sheet.id, ['A', 'B', 'C'])
+
+      await reorderEntities(sheet.id, [entities[2].id, entities[0].id, entities[1].id])
+
+      const ordered = await db.entities
+        .where('sheetId')
+        .equals(sheet.id)
+        .sortBy('position')
+
+      expect(ordered[0].id).toBe(entities[2].id)
+      expect(ordered[0].position).toBe(0)
+      expect(ordered[1].id).toBe(entities[0].id)
+      expect(ordered[1].position).toBe(1)
+      expect(ordered[2].id).toBe(entities[1].id)
+      expect(ordered[2].position).toBe(2)
     })
   })
 })

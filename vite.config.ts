@@ -9,7 +9,12 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 const devtoolsPort = Number(process.env.DEVTOOLS_PORT) || 42069
 
+const isTest = process.env.NODE_ENV === 'test' || process.env.VITEST === 'true'
+
 const config = defineConfig({
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
   plugins: [
     devtools({
       eventBusConfig: {
@@ -22,10 +27,10 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    ...(isTest ? [] : [tanstackStart()]),
     viteReact({
       babel: {
-        plugins: ['babel-plugin-react-compiler'],
+        plugins: isTest ? [] : ['babel-plugin-react-compiler'],
       },
     }),
     VitePWA({
@@ -74,6 +79,9 @@ const config = defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/lib/tracker/test-setup.ts',
+    deps: {
+      inline: ['react', 'react-dom', '@testing-library/react', '@testing-library/user-event'],
+    },
   },
 })
 
