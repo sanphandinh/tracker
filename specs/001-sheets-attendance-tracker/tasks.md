@@ -59,18 +59,18 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 1 ⚠️
 
-- [ ] T011 [P] [US1] Unit test for sheet creation in `src/lib/tracker/db.test.ts` - test createSheet adds default attribute
-- [ ] T012 [P] [US1] Component test for CreateSheetForm in `src/components/tracker/create-sheet-form.test.tsx`
+- [X] T011 [P] [US1] Unit test for sheet creation in `src/lib/tracker/db.test.ts` - test createSheet adds default attribute
+- [X] T012 [P] [US1] Component test for CreateSheetForm in `src/components/tracker/create-sheet-form.test.tsx`
 
 ### Implementation for User Story 1
 
-- [ ] T013 [US1] Implement createSheet function in `src/lib/tracker/db.ts` with default "Điểm danh" boolean attribute
-- [ ] T014 [US1] Implement useCreateSheet hook in `src/hooks/tracker/useCreateSheet.ts`
-- [ ] T015 [P] [US1] Create AttributeTypeSelect component in `src/components/tracker/attribute-type-select.tsx`
-- [ ] T016 [P] [US1] Create AttributeConfig component in `src/components/tracker/attribute-config.tsx` for currency value and dropdown options
-- [ ] T017 [US1] Create CreateSheetForm component in `src/components/tracker/create-sheet-form.tsx`
-- [ ] T018 [US1] Create new sheet route in `src/routes/tracker/new.tsx`
-- [ ] T019 [P] [US1] Create Storybook story for CreateSheetForm in `src/components/tracker/create-sheet-form.stories.tsx`
+- [X] T013 [US1] Implement createSheet function in `src/lib/tracker/db.ts` with default "Điểm danh" boolean attribute
+- [X] T014 [US1] Implement useCreateSheet hook in `src/hooks/tracker/useCreateSheet.ts`
+- [X] T015 [P] [US1] Create AttributeTypeSelect component in `src/components/tracker/attribute-type-select.tsx`
+- [X] T016 [P] [US1] Create AttributeConfig component in `src/components/tracker/attribute-config.tsx` for currency value and dropdown options
+- [X] T017 [US1] Create CreateSheetForm component in `src/components/tracker/create-sheet-form.tsx`
+- [X] T018 [US1] Create new sheet route in `src/routes/tracker/new.tsx`
+- [X] T019 [P] [US1] Create Storybook story for CreateSheetForm in `src/components/tracker/create-sheet-form.stories.tsx`
 
 **Checkpoint**: User can create sheets with custom attributes - foundation for all other stories
 

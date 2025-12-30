@@ -7,9 +7,15 @@ import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+const devtoolsPort = Number(process.env.DEVTOOLS_PORT) || 42069
+
 const config = defineConfig({
   plugins: [
-    devtools(),
+    devtools({
+      eventBusConfig: {
+        port: devtoolsPort,
+      },
+    }),
     nitro(),
     // this is the plugin that enables path aliases
     viteTsConfigPaths({
@@ -64,6 +70,11 @@ const config = defineConfig({
       },
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/lib/tracker/test-setup.ts',
+  },
 })
 
 export default config

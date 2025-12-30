@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrackerNewRouteImport } from './routes/tracker/new'
+import { Route as TrackerSheetIdRouteImport } from './routes/tracker/$sheetId'
 import { Route as DemoTrpcTodoRouteImport } from './routes/demo/trpc-todo'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTanchatRouteImport } from './routes/demo/tanchat'
@@ -38,6 +40,16 @@ import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ss
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerNewRoute = TrackerNewRouteImport.update({
+  id: '/tracker/new',
+  path: '/tracker/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerSheetIdRoute = TrackerSheetIdRouteImport.update({
+  id: '/tracker/$sheetId',
+  path: '/tracker/$sheetId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTrpcTodoRoute = DemoTrpcTodoRouteImport.update({
@@ -171,6 +183,8 @@ export interface FileRoutesByFullPath {
   '/demo/tanchat': typeof DemoTanchatRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/tracker/$sheetId': typeof TrackerSheetIdRoute
+  '/tracker/new': typeof TrackerNewRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -198,6 +212,8 @@ export interface FileRoutesByTo {
   '/demo/tanchat': typeof DemoTanchatRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/tracker/$sheetId': typeof TrackerSheetIdRoute
+  '/tracker/new': typeof TrackerNewRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -226,6 +242,8 @@ export interface FileRoutesById {
   '/demo/tanchat': typeof DemoTanchatRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/tracker/$sheetId': typeof TrackerSheetIdRoute
+  '/tracker/new': typeof TrackerNewRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
   '/demo/api/image': typeof DemoApiImageRoute
@@ -255,6 +273,8 @@ export interface FileRouteTypes {
     | '/demo/tanchat'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/tracker/$sheetId'
+    | '/tracker/new'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -282,6 +302,8 @@ export interface FileRouteTypes {
     | '/demo/tanchat'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/tracker/$sheetId'
+    | '/tracker/new'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -309,6 +331,8 @@ export interface FileRouteTypes {
     | '/demo/tanchat'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/tracker/$sheetId'
+    | '/tracker/new'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
     | '/demo/api/image'
@@ -337,6 +361,8 @@ export interface RootRouteChildren {
   DemoTanchatRoute: typeof DemoTanchatRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoTrpcTodoRoute: typeof DemoTrpcTodoRoute
+  TrackerSheetIdRoute: typeof TrackerSheetIdRoute
+  TrackerNewRoute: typeof TrackerNewRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   DemoApiAvailableProvidersRoute: typeof DemoApiAvailableProvidersRoute
   DemoApiImageRoute: typeof DemoApiImageRoute
@@ -363,6 +389,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker/new': {
+      id: '/tracker/new'
+      path: '/tracker/new'
+      fullPath: '/tracker/new'
+      preLoaderRoute: typeof TrackerNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker/$sheetId': {
+      id: '/tracker/$sheetId'
+      path: '/tracker/$sheetId'
+      fullPath: '/tracker/$sheetId'
+      preLoaderRoute: typeof TrackerSheetIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/trpc-todo': {
@@ -545,6 +585,8 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTanchatRoute: DemoTanchatRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoTrpcTodoRoute: DemoTrpcTodoRoute,
+  TrackerSheetIdRoute: TrackerSheetIdRoute,
+  TrackerNewRoute: TrackerNewRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   DemoApiAvailableProvidersRoute: DemoApiAvailableProvidersRoute,
   DemoApiImageRoute: DemoApiImageRoute,
