@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Mobile-first Layout Config API
+  version: 0.1.0
+  description: |
+    Static contract describing navigation + primary action configuration used by the mobile-first layout refresh.
+paths:
+  /layout/config:
+    get:
+      summary: Retrieve layout configuration
+      tags: [layout]
+      responses:
+        '200':
+          description: Layout shell configuration for navigation and primary action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LayoutConfig'
+components:
+  schemas:
+    LayoutConfig:
+      type: object
+      required: [nav, primaryAction, breakpoints, theme]
+      properties:
+        nav:
+          $ref: '#/components/schemas/NavigationZone'
+        primaryAction:
+          $ref: '#/components/schemas/PrimaryAction'
+        breakpoints:
+          type: object
+          properties:
+            mobileMin:
+              type: integer
+              description: Minimum supported width in px
+              example: 320
+            tabletMin:
+              type: integer
+              description: Width where two-pane layout activates
+              example: 768
+        theme:
+          $ref: '#/components/schemas/ThemeTokens'
+    NavigationZone:
+      type: object
+      required: [items, placement]
+      properties:
+        placement:
+          type: string
+          enum: [bottom-fixed, side]
+          description: Bottom on mobile; side optional on tablet.
+        items:
+          type: array
+          minItems: 3
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/NavigationItem'
+    NavigationItem:
+      type: object
+      required: [id, label, route, icon]
+      properties:
+        id:
+          type: string
+          example: home
+        label:
+          type: string
+          example: Home
+        route:
+          type: string
+          example: /
+        icon:
+          type: string
+          example: home
+        badgeCount:
+          type: integer
+          minimum: 0
+    PrimaryAction:
+      type: object
+      required: [label, icon, action]
+      properties:
+        label:
+          type: string
+          example: Create
+        icon:
+          type: string
+          example: plus
+        action:
+          type: string
+          description: Route or action identifier
+          example: /tracker/new
+        placement:
+          type: string
+          enum: [floating-bottom]
+          default: floating-bottom
+        minSize:
+          type: integer
+          description: Minimum hit target in px (per side)
+          example: 48
+    ThemeTokens:
+      type: object
+      required: [palette]
+      properties:
+        palette:
+          type: object
+          additionalProperties:
+            type: string
+          description: Uses existing tracker palette keys (primary, surface, border, muted, accent).
+        radius:
+          type: array
+          items:
+            type: integer
+          example: [4, 8, 12]
+        shadows:
+          type: array
+          items:
+            type: string
+          example: ['shadow-sm', 'shadow-md']
