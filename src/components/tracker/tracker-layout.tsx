@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react'
 import { LayoutShell } from './layout-shell'
 import { NavigationZone, useTrackerNavItems } from './navigation-zone'
 import { PrimaryAction } from './primary-action'
+import { useRouter } from '@tanstack/react-router'
 
 /**
  * TrackerLayout: Complete mobile-first layout shell for tracker app
@@ -26,15 +27,14 @@ import { PrimaryAction } from './primary-action'
 export function TrackerLayout({
   header,
   children,
-  onCreateClick,
   theme = 'system',
 }: {
   header?: React.ReactNode
   children: React.ReactNode
-  onCreateClick?: () => void
   theme?: 'light' | 'dark' | 'system'
 }) {
   const navItems = useTrackerNavItems()
+  const router = useRouter();
 
   return (
     <LayoutShell
@@ -51,7 +51,9 @@ export function TrackerLayout({
           icon={<Plus className="h-6 w-6" />}
           label="Tạo"
           size="md"
-          onClick={onCreateClick}
+          onClick={() => {
+            router.navigate({ to: "/tracker/new" })
+          }}
           aria-label="Tạo bảng mới"
         />
       }

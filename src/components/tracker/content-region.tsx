@@ -164,7 +164,7 @@ export function ContentRegion({
               'min-h-full',
               // Prevent horizontal scroll and limit max width
               'max-w-full overflow-hidden',
-              'px-3 md:px-4 py-3 md:py-4',
+              // 'px-3 md:px-4 py-3 md:py-4',
             )}
             role="region"
             aria-label="Main content"
