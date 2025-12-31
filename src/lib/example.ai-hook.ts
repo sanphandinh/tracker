@@ -8,9 +8,10 @@ import { clientTools } from '@tanstack/ai-client'
 
 import { recommendGuitarToolDef } from '@/lib/example.guitar-tools'
 
-const recommendGuitarToolClient = recommendGuitarToolDef.client(({ id }) => ({
-  id: +id,
-}))
+const recommendGuitarToolClient = recommendGuitarToolDef.client((args: unknown) => {
+  const { id } = args as { id: string | number }
+  return { id: +id }
+})
 
 const chatOptions = createChatClientOptions({
   connection: fetchServerSentEvents('/demo/api/tanchat'),

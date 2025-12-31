@@ -297,4 +297,177 @@ describe('TwoPaneLayout', () => {
     const region = container.querySelector('[data-content-region]')
     expect(region).toHaveClass('custom-pane-class')
   })
+
+  it('shows list + detail visible at 768px', async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(true), // Is tablet (≥768px)
+    })
+
+    render(
+      <TwoPaneLayout
+        listPane={<div data-testid="list-pane">List Content</div>}
+        detailPane={<div data-testid="detail-pane">Detail Content</div>}
+      />,
+    )
+
+    // Both panes should be visible simultaneously
+    await waitFor(() => {
+      const list = screen.getByTestId('list-pane')
+      const detail = screen.getByTestId('detail-pane')
+      expect(list).toBeInTheDocument()
+      expect(detail).toBeInTheDocument()
+      expect(list).toBeVisible()
+      expect(detail).toBeVisible()
+    })
+  })
+
+  it('shows single column at 767px', async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(false), // Not tablet (<768px)
+    })
+
+    render(
+      <TwoPaneLayout
+        listPane={<div data-testid="list-pane">List Content</div>}
+        detailPane={<div data-testid="detail-pane">Detail Content</div>}
+      />,
+    )
+
+    // In single column mode, only one pane is visible at a time (rendered but in single-column flow)
+    await waitFor(() => {
+      const list = screen.getByTestId('list-pane')
+      expect(list).toBeInTheDocument()
+    })
+  })
+
+  it('transitions from single column to two-pane when crossing 768px breakpoint', async () => {
+    // Start below tablet breakpoint
+    const matchMediaMock = mockMatchMedia(false)
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: matchMediaMock,
+    })
+
+    const onLayoutChange = vi.fn()
+    const { rerender } = render(
+      <TwoPaneLayout
+        listPane={<div data-testid="list-pane">List</div>}
+        detailPane={<div data-testid="detail-pane">Detail</div>}
+        onLayoutChange={onLayoutChange}
+      />,
+    )
+
+    // Initially should be single column
+    await waitFor(() => {
+      expect(onLayoutChange).toHaveBeenCalledWith('single-column')
+    })
+
+    // Simulate crossing to tablet breakpoint
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(true), // Now tablet
+    })
+
+    onLayoutChange.mockClear()
+    rerender(
+      <TwoPaneLayout
+        listPane={<div data-testid="list-pane">List</div>}
+        detailPane={<div data-testid="detail-pane">Detail</div>}
+        onLayoutChange={onLayoutChange}
+      />,
+    )
+
+    // Should transition to two-pane
+    await waitFor(() => {
+      expect(onLayoutChange).toHaveBeenCalledWith('two-pane')
+    })
+  })
+
+  it('maintains state and scroll position across orientation changes', async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(true),
+    })
+
+    const { container } = render(
+      <TwoPaneLayout
+        listPane={
+          <div data-testid="list-pane" style={{ height: '1000px' }}>
+            Scrollable List
+          </div>
+        }
+        detailPane={<div data-testid="detail-pane">Detail</div>}
+      />,
+    )
+
+    const region = container.querySelector('[data-content-region]')
+    expect(region).toBeInTheDocument()
+
+    // Simulate scroll
+    if (region) {
+      region.scrollTop = 100
+      region.dispatchEvent(new Event('scroll'))
+    }
+
+    // Verify scroll position was saved
+    await waitFor(() => {
+      const saved = sessionStorage.getItem('content-scroll-position')
+      expect(saved).toBeTruthy()
+    })
+  })
+
+  it('prevents horizontal scroll with long Vietnamese text at 320px', () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(false), // Mobile
+    })
+
+    const { container } = render(
+      <ContentRegion>
+        <div data-testid="long-text">
+          Đây là một đoạn văn bản tiếng Việt rất dài với nhiều từ dài như trách nhiệm phát triển đặc
+          điểm để kiểm tra việc xuống dòng tự động không gây tràn ngang màn hình
+        </div>
+      </ContentRegion>,
+    )
+
+    const region = container.querySelector('[data-content-region]')
+    expect(region).toHaveClass('no-horizontal-scroll')
+    expect(region).toHaveClass('overflow-x-hidden')
+  })
+
+  it('prevents horizontal scroll with wide form content at 320px', () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: mockMatchMedia(false), // Mobile
+    })
+
+    const { container } = render(
+      <ContentRegion>
+        <div data-testid="wide-form" style={{ minWidth: '500px' }}>
+          Wide content that would overflow
+        </div>
+      </ContentRegion>,
+    )
+
+    const region = container.querySelector('[data-content-region]')
+    expect(region).toHaveClass('overflow-x-hidden')
+    expect(region).toHaveClass('no-horizontal-scroll')
+  })
+
+  it('handles long URLs without overflow', () => {
+    render(
+      <ContentRegion>
+        <div data-testid="long-url" className="text-wrap-long wrap-break-word">
+          https://example.com/very-long-url-path/that/should/wrap/properly/without/causing/horizontal/scroll
+        </div>
+      </ContentRegion>,
+    )
+
+    const text = screen.getByTestId('long-url')
+    expect(text).toHaveClass('text-wrap-long')
+    expect(text).toHaveClass('break-words')
+  })
 })

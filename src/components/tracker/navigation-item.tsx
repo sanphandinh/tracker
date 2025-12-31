@@ -82,14 +82,8 @@ export function NavigationItem({
     >
       {/* Icon */}
       {icon && (
-        <div className="flex items-center justify-center h-6 w-6">
-          {typeof icon === 'string' ? (
-            // If icon is a string (icon name), render as text placeholder
-            <span className="text-sm font-semibold">{icon[0]?.toUpperCase()}</span>
-          ) : (
-            // If icon is a React element
-            icon
-          )}
+        <div className="flex items-center justify-center h-6 w-6 shrink-0">
+          {icon}
         </div>
       )}
 
@@ -99,7 +93,7 @@ export function NavigationItem({
           'text-xs font-medium leading-tight text-wrap-long',
           'line-clamp-2',
           // Prevent label from being too wide
-          'max-w-[60px]',
+          'max-w-15',
         )}
       >
         {label}

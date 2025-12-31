@@ -3,16 +3,16 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+// import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+// import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import Header from '../components/Header'
+// import Header from '../components/Header'
 
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+// import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
-import AiDevtools from '../lib/ai-devtools'
+// import AiDevtools from '../lib/ai-devtools'
 
-import StoreDevtools from '../lib/demo-store-devtools'
+// import StoreDevtools from '../lib/demo-store-devtools'
 
 import appCss from '../styles.css?url'
 
@@ -20,6 +20,7 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import type { TRPCRouter } from '@/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import { TrackerLayout } from '@/components/tracker/tracker-layout'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -59,13 +60,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
-        <main className="mx-auto min-h-screen w-full max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
+        <TrackerLayout>
           {children}
-        </main>
-        <TanStackDevtools
+        </TrackerLayout>
+        {/* <TanStackDevtools
           config={{
-            position: 'bottom-left',
+            position: 'top-right',
           }}
           plugins={[
             {
@@ -76,7 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             AiDevtools,
             StoreDevtools,
           ]}
-        />
+        /> */}
         <Scripts />
       </body>
     </html>

@@ -112,11 +112,11 @@ function Messages({
             >
               <div className="flex items-start gap-4 max-w-3xl mx-auto w-full">
                 {message.role === 'assistant' ? (
-                  <div className="w-8 h-8 rounded-lg bg-linear-to-r from-orange-500 to-red-600 mt-2 flex items-center justify-center text-sm font-medium text-white flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-linear-to-r from-orange-500 to-red-600 mt-2 flex items-center justify-center text-sm font-medium text-white shrink-0">
                     AI
                   </div>
                 ) : (
-                  <div className="w-8 h-8 rounded-lg bg-gray-700 flex items-center justify-center text-sm font-medium text-white flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-gray-700 flex items-center justify-center text-sm font-medium text-white shrink-0">
                     Y
                   </div>
                 )}
@@ -140,7 +140,7 @@ function Messages({
                     ) {
                       return (
                         <div key={part.id} className="max-w-[80%] mx-auto">
-                          <GuitarRecommendation id={String(part.output?.id)} />
+                          <GuitarRecommendation id={String((part.output as { id: number })?.id)} />
                         </div>
                       )
                     }
@@ -155,7 +155,7 @@ function Messages({
                         ? onStopSpeak()
                         : onSpeak(textContent, message.id)
                     }
-                    className="flex-shrink-0 p-2 text-gray-400 hover:text-orange-400 transition-colors"
+                    className="shrink-0 p-2 text-gray-400 hover:text-orange-400 transition-colors"
                     title={isPlaying ? 'Stop speaking' : 'Read aloud'}
                   >
                     {isPlaying ? (
@@ -225,10 +225,7 @@ function ChatPage() {
     selectedModel && hasCapability(selectedModel.provider, 'transcription')
 
   const { messages, sendMessage, isLoading, stop } =
-    useGuitarRecommendationChat(
-      selectedModel?.provider || 'anthropic',
-      selectedModel?.model || 'claude-haiku-4-5',
-    )
+    useGuitarRecommendationChat()
 
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = availableModelOptions.find(

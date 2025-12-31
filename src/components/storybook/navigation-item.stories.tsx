@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { Home, ClipboardList, Settings, Bell, MessageCircle, Check } from 'lucide-react'
 import { NavigationItem } from '../tracker/navigation-item'
 
 const meta: Meta<typeof NavigationItem> = {
@@ -48,7 +49,7 @@ export const Default: Story = {
     id: 'home',
     label: 'Home',
     route: '/',
-    icon: '🏠',
+    icon: <Home className="h-6 w-6" />,
   },
 }
 
@@ -60,7 +61,7 @@ export const Active: Story = {
     id: 'sheets',
     label: 'Bảng',
     route: '/tracker',
-    icon: '📋',
+    icon: <ClipboardList className="h-6 w-6" />,
   },
   parameters: {
     pseudo: { active: true },
@@ -75,7 +76,7 @@ export const WithBadge: Story = {
     id: 'notifications',
     label: 'Thông báo',
     route: '/notifications',
-    icon: '🔔',
+    icon: <Bell className="h-6 w-6" />,
     badgeCount: 5,
   },
 }
@@ -88,7 +89,7 @@ export const WithHighBadgeCount: Story = {
     id: 'messages',
     label: 'Tin nhắn',
     route: '/messages',
-    icon: '💬',
+    icon: <MessageCircle className="h-6 w-6" />,
     badgeCount: 150,
   },
 }
@@ -96,12 +97,12 @@ export const WithHighBadgeCount: Story = {
 /**
  * Settings navigation item - inactive state
  */
-export const Settings: Story = {
+export const SettingsItem: Story = {
   args: {
     id: 'settings',
     label: 'Cài đặt',
     route: '/settings',
-    icon: '⚙️',
+    icon: <Settings className="h-6 w-6" />,
   },
 }
 
@@ -114,7 +115,7 @@ export const LongLabel: Story = {
     id: 'attendance',
     label: 'Điểm danh',
     route: '/tracker',
-    icon: '✓',
+    icon: <Check className="h-6 w-6" />,
   },
 }
 
@@ -127,7 +128,7 @@ export const Focused: Story = {
     id: 'home',
     label: 'Home',
     route: '/',
-    icon: '🏠',
+    icon: <Home className="h-6 w-6" />,
   },
   parameters: {
     pseudo: { focusVisible: true },
@@ -142,7 +143,7 @@ export const Hovered: Story = {
     id: 'sheets',
     label: 'Bảng',
     route: '/tracker',
-    icon: '📋',
+    icon: <ClipboardList className="h-6 w-6" />,
   },
   parameters: {
     pseudo: { hover: true },
@@ -159,33 +160,33 @@ export const MultipleItems: Story = {
         id="home"
         label="Home"
         route="/"
-        icon="🏠"
+        icon={<Home className="h-6 w-6" />}
       />
       <NavigationItem
         id="sheets"
         label="Bảng"
         route="/tracker"
-        icon="📋"
+        icon={<ClipboardList className="h-6 w-6" />}
       />
       <NavigationItem
         id="settings"
         label="Cài đặt"
         route="/settings"
-        icon="⚙️"
+        icon={<Settings className="h-6 w-6" />}
       />
     </div>
   ),
 }
 
 /**
- * Navigation items with React icons (simulate lucide-react)
+ * Navigation items with React icons (lucide-react)
  */
 export const WithIconComponent: Story = {
   args: {
     id: 'home',
     label: 'Home',
     route: '/',
-    icon: <span className="text-lg">🏠</span>,
+    icon: <Home className="h-6 w-6" />,
   },
 }
 
@@ -197,7 +198,7 @@ export const DarkTheme: Story = {
     id: 'sheets',
     label: 'Bảng',
     route: '/tracker',
-    icon: '📋',
+    icon: <ClipboardList className="h-6 w-6" />,
   },
   decorators: [
     (Story) => (

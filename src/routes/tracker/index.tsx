@@ -5,7 +5,7 @@ import { BellRing, ClipboardList, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { SheetCard } from '@/components/tracker/sheet-card'
+import { TwoPaneLayout } from '@/components/tracker/content-region'
 import { useSheets } from '@/hooks/tracker/useSheets'
 import { db } from '@/lib/tracker/db'
 
@@ -45,6 +45,7 @@ export function TrackerHome() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showBackupReminder, setShowBackupReminder] = useState(false)
   const [reminderInterval, setReminderInterval] = useState(7)
+  const [selectedSheetId, setSelectedSheetId] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -91,12 +92,27 @@ export function TrackerHome() {
   }, [sheets, searchQuery])
 
   const handleOpenSheet = (sheetId: string) => {
-    safeNavigate({ to: `/tracker/${sheetId}` })
+    // On tablet+, show in detail pane; on mobile, navigate
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      setSelectedSheetId(sheetId)
+    } else {
+      safeNavigate({ to: `/tracker/${sheetId}` })
+    }
   }
 
   const handleCreateSheet = () => {
     safeNavigate({ to: '/tracker/new' })
   }
+
+  // Get selected sheet data for detail pane
+  const selectedSheet = useMemo(() => {
+    return sheets.find((s) => s.id === selectedSheetId)
+  }, [sheets, selectedSheetId])
+
+  const selectedSheetMetadata = useMemo(() => {
+    if (!selectedSheetId) return null
+    return sheetMetadata?.find((m) => m.sheetId === selectedSheetId)
+  }, [sheetMetadata, selectedSheetId])
 
   if (isLoading) {
     return (
@@ -127,62 +143,9 @@ export function TrackerHome() {
   const hasSheets = sheets.length > 0
   const showEmpty = !isLoading && !hasSheets
 
-  return (
-    <div className="flex flex-col gap-6">
-      {/* Header */}
-      <div className="flex flex-col gap-3 border-b border-border pb-6">
-        <h1 className="text-2xl font-bold">Bảng theo dõi</h1>
-        <p className="text-muted-foreground">Quản lý và theo dõi các bảng của bạn</p>
-      </div>
-
-      {showBackupReminder && (
-        <Card className="flex flex-col gap-3 border-dashed border-primary/40 bg-primary/5 p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-3">
-            <BellRing className="mt-0.5 h-5 w-5 text-primary" aria-hidden />
-            <div>
-              <div className="font-semibold">Đừng quên sao lưu</div>
-              <p className="text-sm text-muted-foreground">Nhắc mỗi {reminderInterval} ngày để tải file backup và lưu an toàn.</p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Button size="sm" onClick={() => safeNavigate({ to: '/tracker/backup' })}>
-              <Download className="mr-2 h-4 w-4" aria-hidden /> Sao lưu ngay
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => {
-                setShowBackupReminder(false)
-                if (typeof window !== 'undefined') {
-                  localStorage.setItem('tracker.backupReminder.enabled', 'false')
-                }
-              }}
-            >
-              Ẩn nhắc nhở
-            </Button>
-          </div>
-        </Card>
-      )}
-
-      {/* Create button */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-        <Button
-          onClick={handleCreateSheet}
-          size="lg"
-          className="w-full sm:w-auto"
-        >
-          + Tạo bảng mới
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          onClick={() => safeNavigate({ to: '/tracker/settings' })}
-          className="w-full sm:w-auto"
-        >
-          Cài đặt
-        </Button>
-      </div>
-
+  // List pane content (sheet cards)
+  const listPaneContent = (
+    <div className="flex flex-col gap-4 p-4">
       {/* Search */}
       {hasSheets && (
         <div className="flex flex-col gap-2">
@@ -214,19 +177,25 @@ export function TrackerHome() {
         </div>
       ) : (
         <>
-          {/* Sheets grid */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Sheets list */}
+          <div className="flex flex-col gap-2">
             {filteredSheets.map((sheet) => {
               const metadata = sheetMetadata?.find((m) => m.sheetId === sheet.id)
+              const isSelected = sheet.id === selectedSheetId
 
               return (
-                <SheetCard
+                <div
                   key={sheet.id}
-                  sheet={sheet}
-                  entityCount={metadata?.entityCount ?? 0}
-                  attributeCount={metadata?.attributeCount ?? 0}
-                  onClick={handleOpenSheet}
-                />
+                  onClick={() => handleOpenSheet(sheet.id)}
+                  className={`cursor-pointer rounded-lg border p-3 transition-colors hover:bg-accent ${
+                    isSelected ? 'border-primary bg-primary/5' : 'border-border'
+                  }`}
+                >
+                  <h3 className="font-semibold">{sheet.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {metadata?.entityCount ?? 0} mục • {metadata?.attributeCount ?? 0} thuộc tính
+                  </p>
+                </div>
               )
             })}
           </div>
@@ -240,6 +209,101 @@ export function TrackerHome() {
         </>
       )}
     </div>
+  )
+
+  // Detail pane content (selected sheet preview)
+  const detailPaneContent = selectedSheet ? (
+    <div className="flex flex-col gap-4 p-6">
+      <div>
+        <h2 className="text-2xl font-bold mb-2">{selectedSheet.name}</h2>
+        <p className="text-sm text-muted-foreground">
+          {selectedSheetMetadata?.entityCount ?? 0} mục • {selectedSheetMetadata?.attributeCount ?? 0} thuộc tính
+        </p>
+      </div>
+
+      <div className="flex gap-2">
+        <Button
+          onClick={() => safeNavigate({ to: `/tracker/${selectedSheet.id}` })}
+          size="lg"
+        >
+          Mở bảng
+        </Button>
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={() => safeNavigate({ to: `/tracker/${selectedSheet.id}/edit` })}
+        >
+          Chỉnh sửa
+        </Button>
+      </div>
+
+      <Card className="p-4 bg-muted/50">
+        <p className="text-sm text-muted-foreground">
+          Chi tiết bảng sẽ hiển thị ở đây. Trên tablet, bạn có thể xem danh sách và chi tiết cùng lúc.
+        </p>
+      </Card>
+    </div>
+  ) : (
+    <div className="flex flex-col items-center justify-center h-full gap-4 p-6">
+      <ClipboardList className="h-16 w-16 text-muted-foreground/50" aria-hidden />
+      <div className="text-center">
+        <h3 className="font-semibold text-lg mb-2">Chọn một bảng</h3>
+        <p className="text-sm text-muted-foreground">
+          Chọn bảng từ danh sách bên trái để xem chi tiết
+        </p>
+      </div>
+    </div>
+  )
+
+  return (
+    <TwoPaneLayout
+      listPane={
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className="flex flex-col gap-3 border-b border-border p-4 shrink-0">
+            <h1 className="text-xl font-bold">Bảng theo dõi</h1>
+            <Button onClick={handleCreateSheet} size="sm" className="w-full">
+              + Tạo bảng mới
+            </Button>
+          </div>
+
+          {showBackupReminder && (
+            <Card className="m-4 flex flex-col gap-3 border-dashed border-primary/40 bg-primary/5 p-3">
+              <div className="flex items-start gap-3">
+                <BellRing className="mt-0.5 h-5 w-5 text-primary" aria-hidden />
+                <div>
+                  <div className="font-semibold text-sm">Đừng quên sao lưu</div>
+                  <p className="text-xs text-muted-foreground">
+                    Nhắc mỗi {reminderInterval} ngày
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button size="sm" onClick={() => safeNavigate({ to: '/tracker/backup' })}>
+                  <Download className="mr-2 h-4 w-4" aria-hidden /> Sao lưu
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => {
+                    setShowBackupReminder(false)
+                    if (typeof window !== 'undefined') {
+                      localStorage.setItem('tracker.backupReminder.enabled', 'false')
+                    }
+                  }}
+                >
+                  Ẩn
+                </Button>
+              </div>
+            </Card>
+          )}
+
+          {/* List content (scrollable) */}
+          <div className="flex-1 overflow-y-auto">{listPaneContent}</div>
+        </div>
+      }
+      detailPane={detailPaneContent}
+    />
   )
 }
 

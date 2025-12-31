@@ -11,6 +11,21 @@ vi.mock('@/hooks/tracker/useSheets', () => ({
   useSheets: mockUseSheets,
 }))
 
+// Mock matchMedia for responsive layout tests
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation((query: string) => ({
+    matches: false, // Default to mobile view
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+})
+
 describe('TrackerHome', () => {
   const mockSheets: TrackingSheet[] = [
     {
@@ -154,11 +169,12 @@ describe('TrackerHome', () => {
     // Should navigate between buttons/cards with Tab key
   })
 
-  it('shows sheets in grid layout on desktop', () => {
+  it('shows sheets in two-pane layout on desktop', () => {
     const { container } = render(<TrackerHome />)
 
-    const grid = container.querySelector('[class*="grid"]')
-    expect(grid).toBeInTheDocument()
+    // Check for content region which wraps the two-pane layout
+    const contentRegion = container.querySelector('[data-content-region]')
+    expect(contentRegion).toBeInTheDocument()
   })
 
   it('shows sheets in vertical list on mobile', () => {

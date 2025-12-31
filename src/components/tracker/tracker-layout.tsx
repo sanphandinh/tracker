@@ -1,4 +1,5 @@
 import React from 'react'
+import { Plus } from 'lucide-react'
 import { LayoutShell } from './layout-shell'
 import { NavigationZone, useTrackerNavItems } from './navigation-zone'
 import { PrimaryAction } from './primary-action'
@@ -47,7 +48,7 @@ export function TrackerLayout({
       navigation={<NavigationZone items={navItems} />}
       primaryAction={
         <PrimaryAction
-          icon="➕"
+          icon={<Plus className="h-6 w-6" />}
           label="Tạo"
           size="md"
           onClick={onCreateClick}

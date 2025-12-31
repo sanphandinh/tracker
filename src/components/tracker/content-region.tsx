@@ -48,6 +48,11 @@ export function ContentRegion({
 
   // Detect tablet breakpoint
   useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+      // SSR or test environment without matchMedia
+      return
+    }
+
     const mediaQuery = window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`)
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
       const isTabletNow = e.matches
@@ -128,7 +133,7 @@ export function ContentRegion({
           <aside
             className={cn(
               'flex flex-col border-r border-border overflow-y-auto overflow-x-hidden',
-              'flex-shrink-0',
+              'shrink-0',
               // Clamp: 280px min, 32vw preferred, 360px max (prevents overflow and maintains touch targets)
               // Using inline style for precise control
             )}

@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Home, ClipboardList, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { NavigationItem, type NavigationItemProps } from './navigation-item'
 
@@ -104,7 +105,7 @@ export function NavigationZone({
               // Item flex sizing
               'flex-1 sm:flex-none',
               // Touch target
-              'min-h-14 min-w-[60px]',
+              'min-h-14 min-w-15',
               // Even distribution
               alignment === 'space-between' && 'flex-1',
             )}
@@ -124,21 +125,21 @@ export function useTrackerNavItems(): NavigationItemProps[] {
       id: 'home',
       label: 'Home',
       route: '/',
-      icon: '🏠',
+      icon: <Home className="h-6 w-6" />,
       'aria-label': 'Home - Back to main page',
     },
     {
       id: 'sheets',
       label: 'Bảng',
       route: '/tracker',
-      icon: '📋',
+      icon: <ClipboardList className="h-6 w-6" />,
       'aria-label': 'Sheets - Manage tracking sheets',
     },
     {
       id: 'settings',
       label: 'Cài đặt',
       route: '/tracker/settings',
-      icon: '⚙️',
+      icon: <Settings className="h-6 w-6" />,
       'aria-label': 'Settings - App configuration',
     },
   ]

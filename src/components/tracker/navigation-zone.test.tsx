@@ -1,14 +1,15 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Home, ClipboardList, Settings, Star } from 'lucide-react'
 import { NavigationZone, useTrackerNavItems } from './navigation-zone'
 import type { NavigationItemProps } from './navigation-item'
 
 describe('NavigationZone', () => {
   const mockItems: NavigationItemProps[] = [
-    { id: 'home', label: 'Home', route: '/', icon: '🏠' },
-    { id: 'sheets', label: 'Sheets', route: '/sheets', icon: '📋' },
-    { id: 'settings', label: 'Settings', route: '/settings', icon: '⚙️' },
+    { id: 'home', label: 'Home', route: '/', icon: <Home className="h-6 w-6" /> },
+    { id: 'sheets', label: 'Sheets', route: '/sheets', icon: <ClipboardList className="h-6 w-6" /> },
+    { id: 'settings', label: 'Settings', route: '/settings', icon: <Settings className="h-6 w-6" /> },
   ]
 
   beforeEach(() => {
@@ -134,8 +135,8 @@ describe('NavigationZone', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const extraItems = [
       ...mockItems,
-      { id: 'extra1', label: 'Extra', route: '/extra', icon: '⭐' },
-      { id: 'extra2', label: 'Extra2', route: '/extra2', icon: '⭐' },
+      { id: 'extra1', label: 'Extra', route: '/extra', icon: <Star className="h-6 w-6" /> },
+      { id: 'extra2', label: 'Extra2', route: '/extra2', icon: <Star className="h-6 w-6" /> },
     ]
 
     render(<NavigationZone items={extraItems} />)
@@ -152,8 +153,8 @@ describe('NavigationZone', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const extraItems = [
       ...mockItems,
-      { id: 'extra1', label: 'Extra', route: '/extra', icon: '⭐' },
-      { id: 'extra2', label: 'Extra2', route: '/extra2', icon: '⭐' },
+      { id: 'extra1', label: 'Extra', route: '/extra', icon: <Star className="h-6 w-6" /> },
+      { id: 'extra2', label: 'Extra2', route: '/extra2', icon: <Star className="h-6 w-6" /> },
     ]
 
     render(<NavigationZone items={extraItems} />)

@@ -38,11 +38,11 @@ export const Route = createFileRoute('/demo/api/image')({
         try {
           const options = createImageOptions({
             adapter: openaiImage((model || 'gpt-image-1') as any),
+            prompt,
           })
 
           const result = await generateImage({
             ...options,
-            prompt,
             numberOfImages,
             size,
           })

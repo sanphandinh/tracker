@@ -74,15 +74,15 @@
 
 ### Tests for User Story 2 (MANDATORY for UI layout behavior)
 
-- [ ] T020 [P] [US2] Add ContentRegion Storybook story with mobile/tablet/landscape variants in src/components/storybook/content-region.stories.ts
-- [ ] T021 [P] [US2] Add two-pane integration test (list + detail visible at 768px, single column at 767px) in src/components/tracker/content-region.test.tsx
+- [X] T020 [P] [US2] Add ContentRegion Storybook story with mobile/tablet/landscape variants in src/components/storybook/content-region.stories.ts
+- [X] T021 [P] [US2] Add two-pane integration test (list + detail visible at 768px, single column at 767px) in src/components/tracker/content-region.test.tsx
 
 ### Implementation for User Story 2
 
-- [ ] T022 [P] [US2] Extend ContentRegion with CSS grid two-pane layout using `grid-template-columns: minmax(280px, 32vw) 1fr` at ≥768px in src/components/tracker/content-region.tsx
-- [ ] T023 [P] [US2] Add TwoPaneLayout wrapper component for list + detail children in src/components/tracker/two-pane-layout.tsx
-- [ ] T024 [US2] Update tracker sheets route to use TwoPaneLayout with list pane (sheet cards) and detail pane (selected sheet content) in src/routes/tracker/index.tsx
-- [ ] T025 [US2] Preserve scroll position and selection state on orientation change using CSS scroll-behavior and React state in src/components/tracker/two-pane-layout.tsx
+- [X] T022 [P] [US2] Extend ContentRegion with CSS grid two-pane layout using `grid-template-columns: minmax(280px, 32vw) 1fr` at ≥768px in src/components/tracker/content-region.tsx
+- [X] T023 [P] [US2] Add TwoPaneLayout wrapper component for list + detail children in src/components/tracker/two-pane-layout.tsx
+- [X] T024 [US2] Update tracker sheets route to use TwoPaneLayout with list pane (sheet cards) and detail pane (selected sheet content) in src/routes/tracker/index.tsx
+- [X] T025 [US2] Preserve scroll position and selection state on orientation change using CSS scroll-behavior and React state in src/components/tracker/two-pane-layout.tsx
 - [ ] T026 [US2] Add tablet-specific navigation placement option (side sticky nav for landscape if helpful) in src/components/tracker/navigation-zone.tsx
 
 **Checkpoint**: User Stories 1 AND 2 both work independently - mobile nav functional, tablet shows two-pane views
@@ -97,17 +97,17 @@
 
 ### Tests for User Story 3 (MANDATORY for layout constraints)
 
-- [ ] T027 [P] [US3] Add typography Storybook story with mobile/tablet font sizes and line heights in src/components/storybook/typography.stories.ts
-- [ ] T028 [P] [US3] Add overflow guard test (render long Vietnamese text, wide form, verify no horizontal scroll at 320px) in src/components/tracker/content-region.test.tsx
+- [X] T027 [P] [US3] Add typography Storybook story with mobile/tablet font sizes and line heights in src/components/storybook/typography.stories.ts
+- [X] T028 [P] [US3] Add overflow guard test (render long Vietnamese text, wide form, verify no horizontal scroll at 320px) in src/components/tracker/content-region.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T029 [P] [US3] Set base typography tokens: 16px body, 14px secondary, line-height 1.5–1.6 in src/styles.css
-- [ ] T030 [P] [US3] Add spacing scale (8/12/16/20/24px) and apply to container padding/margins in src/styles.css
-- [ ] T031 [US3] Clamp container max-width and add horizontal padding to prevent overflow in src/components/tracker/content-region.tsx
-- [ ] T032 [US3] Update form components (if any) to ensure min 44px input/button height and adequate spacing in src/components/tracker/*.tsx
-- [ ] T033 [US3] Add text-wrap utilities and word-break for long labels/Vietnamese text in src/styles.css
-- [ ] T034 [US3] Test edge cases: ≤320px viewport, long text, large images scaled with max-w-full in src/components/tracker/content-region.test.tsx
+- [X] T029 [P] [US3] Set base typography tokens: 16px body, 14px secondary, line-height 1.5–1.6 in src/styles.css
+- [X] T030 [P] [US3] Add spacing scale (8/12/16/20/24px) and apply to container padding/margins in src/styles.css
+- [X] T031 [US3] Clamp container max-width and add horizontal padding to prevent overflow in src/components/tracker/content-region.tsx
+- [X] T032 [US3] Update form components (if any) to ensure min 44px input/button height and adequate spacing in src/components/tracker/*.tsx
+- [X] T033 [US3] Add text-wrap utilities and word-break for long labels/Vietnamese text in src/styles.css
+- [X] T034 [US3] Test edge cases: ≤320px viewport, long text, large images scaled with max-w-full in src/components/tracker/content-region.test.tsx
 
 **Checkpoint**: All user stories independently functional - mobile nav, tablet two-pane, readable content with no overflow
 
@@ -117,11 +117,11 @@
 
 **Purpose**: Refinements affecting multiple user stories and final validation
 
-- [ ] T035 [P] Apply tracker color palette to header/nav backgrounds and ensure WCAG AA contrast in light/dark themes in src/styles.css
+- [X] T035 [P] Apply tracker color palette to header/nav backgrounds and ensure WCAG AA contrast in light/dark themes in src/styles.css
 - [ ] T036 [P] Add lightweight app logo/wordmark to header without harming contrast in src/components/tracker/layout-shell.tsx
-- [ ] T037 [P] Add mobile header back button + title pattern (replace breadcrumbs on mobile) in src/components/tracker/mobile-header.tsx
-- [ ] T038 Create MobileHeader component with back navigation and integrate into LayoutShell in src/components/tracker/mobile-header.tsx and layout-shell.tsx
-- [ ] T039 [P] Add safe-area CSS for notch/home indicator handling across all layout components in src/styles.css
+- [X] T037 [P] Add mobile header back button + title pattern (replace breadcrumbs on mobile) in src/components/tracker/mobile-header.tsx
+- [X] T038 Create MobileHeader component with back navigation and integrate into LayoutShell in src/components/tracker/mobile-header.tsx and layout-shell.tsx
+- [X] T039 [P] Add safe-area CSS for notch/home indicator handling across all layout components in src/styles.css
 - [ ] T040 [P] Performance audit: verify route chunks ≤150KB gzipped, no JS layout recalcs via Chrome DevTools
 - [ ] T041 [P] Accessibility audit: verify focus-visible outlines, ARIA labels, keyboard nav across all interactive elements
 - [ ] T042 Run quickstart.md validation: 375px (≤2 taps), 768px (two-pane), no horizontal scroll ≥320px, touch targets ≥44px

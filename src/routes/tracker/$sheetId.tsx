@@ -46,7 +46,7 @@ function SheetViewPage() {
       setIsExporting(true)
       if (format === 'excel') {
         const arrayBuffer = await exportSheetToExcel(sheetId)
-        const blob = new Blob([arrayBuffer], {
+        const blob = new Blob([arrayBuffer as unknown as BlobPart], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         })
         downloadBlob(blob, `tracker-${sheetId}.xlsx`)
