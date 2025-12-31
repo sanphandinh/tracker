@@ -57,10 +57,10 @@
 - [x] T013 [P] [US1] Create NavigationItem component with icon, label, route, badge support in src/components/tracker/navigation-item.tsx
 - [x] T014 [P] [US1] Create PrimaryAction component with floating-bottom placement and safe-area offset in src/components/tracker/primary-action.tsx
 - [x] T015 [US1] Create NavigationZone component with 3 persistent items (Home, Sheets, Settings) and bottom-fixed layout in src/components/tracker/navigation-zone.tsx
-- [ ] T016 [US1] Integrate NavigationZone into LayoutShell with 56px height and space-between alignment in src/components/tracker/layout-shell.tsx
-- [ ] T017 [US1] Integrate PrimaryAction (Create) into LayoutShell with bottom-right anchor in src/components/tracker/layout-shell.tsx
-- [ ] T018 [US1] Wire NavigationItem active state from TanStack Router useMatchRoute hook in src/components/tracker/navigation-item.tsx
-- [ ] T019 [US1] Add ARIA labels and focus-visible styles to NavigationItem and PrimaryAction for accessibility in src/components/tracker/navigation-item.tsx and primary-action.tsx
+- [x] T016 [US1] Integrate NavigationZone into LayoutShell with 56px height and space-between alignment in src/components/tracker/layout-shell.tsx
+- [x] T017 [US1] Integrate PrimaryAction (Create) into LayoutShell with bottom-right anchor in src/components/tracker/layout-shell.tsx
+- [x] T018 [US1] Wire NavigationItem active state from TanStack Router useMatchRoute hook in src/components/tracker/navigation-item.tsx
+- [x] T019 [US1] Add ARIA labels and focus-visible styles to NavigationItem and PrimaryAction for accessibility in src/components/tracker/navigation-item.tsx and primary-action.tsx
 
 **Checkpoint**: User Story 1 complete - mobile nav with 3 destinations + Create action, all thumb-reachable, independently testable
 
