@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import { useVirtualizer } from '@tanstack/react-virtual'
+import { UsersRound, SearchX } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { CellInput } from './cell-input'
@@ -32,6 +34,7 @@ interface SheetViewProps {
 export function SheetView({ sheetId, className }: SheetViewProps) {
   const { sheet: _sheet, entities, attributes, isLoading, error } = useSheet(sheetId)
   const [searchQuery, setSearchQuery] = useState('')
+  const parentRef = useRef<HTMLDivElement>(null)
 
   /**
    * Filter entities by search query
@@ -43,10 +46,30 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
     )
   }, [entities, searchQuery])
 
+  const rowVirtualizer = useVirtualizer({
+    count: filteredEntities.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 64,
+    overscan: 8,
+  })
+  const virtualRows = rowVirtualizer.getVirtualItems()
+  const rowsToRender = virtualRows.length
+    ? virtualRows
+    : filteredEntities.map((_, index) => ({ index, key: `fallback-${index}`, start: index * 64 }))
+
   if (isLoading) {
     return (
-      <div className={cn('flex items-center justify-center p-8', className)}>
-        <p className="text-muted-foreground">Đang tải dữ liệu...</p>
+      <div className={cn('space-y-3 p-4', className)}>
+        <p className="sr-only">Đang tải dữ liệu...</p>
+        <div className="h-6 w-40 animate-pulse rounded bg-muted" />
+        <div className="space-y-2 rounded-lg border p-4">
+          <div className="h-4 w-32 animate-pulse rounded bg-muted" />
+          <div className="h-10 w-full animate-pulse rounded bg-muted" />
+        </div>
+        <div className="space-y-2 rounded-lg border p-4">
+          <div className="h-4 w-24 animate-pulse rounded bg-muted" />
+          <div className="h-16 w-full animate-pulse rounded bg-muted" />
+        </div>
       </div>
     )
   }
@@ -62,8 +85,9 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
 
   if (entities.length === 0) {
     return (
-      <div className={cn('flex flex-col items-center justify-center gap-4 p-8', className)}>
-        <p className="text-lg font-medium">Chưa có thành viên</p>
+      <div className={cn('flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-muted-foreground/30 p-8 text-center', className)}>
+        <UsersRound className="h-10 w-10 text-muted-foreground" aria-hidden />
+        <p className="text-lg font-semibold">Chưa có thành viên</p>
         <p className="text-sm text-muted-foreground">Thêm thành viên để bắt đầu đánh dấu</p>
       </div>
     )
@@ -86,11 +110,19 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
         )}
       </div>
 
+      {filteredEntities.length === 0 && (
+        <div className="mx-4 flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-muted-foreground/40 p-8 text-center">
+          <SearchX className="h-10 w-10 text-muted-foreground" aria-hidden />
+          <p className="text-base font-semibold">Không tìm thấy thành viên</p>
+          <p className="text-sm text-muted-foreground">Thử tìm bằng từ khóa khác hoặc thêm thành viên mới.</p>
+        </div>
+      )}
+
       {/* Grid container */}
       <div className="overflow-x-auto px-4 pb-4">
         <div className="min-w-max">
           {/* Header row */}
-          <div className="mb-2 flex gap-2 bg-muted/50 rounded-t-lg">
+          <div className="mb-2 flex gap-2 rounded-t-lg bg-muted/50">
             {/* Entity name column header */}
             <div className="sticky left-0 z-20 flex min-w-48 items-center gap-2 rounded-tl-lg bg-muted/70 px-3 py-2 font-medium">
               Tên thành viên
@@ -107,15 +139,36 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
             ))}
           </div>
 
-          {/* Entity rows */}
-          {filteredEntities.map((entity) => (
-            <EntitySheetRow
-              key={entity.id}
-              entity={entity}
-              attributeIds={attributes.map((a) => a.id)}
-              attributes={attributes}
-            />
-          ))}
+          <div
+            ref={parentRef}
+            className="max-h-[70vh] overflow-auto rounded-b-lg border border-border"
+          >
+            <div
+              className="relative"
+              style={{
+                height: `${virtualRows.length ? rowVirtualizer.getTotalSize() : filteredEntities.length * 64}px`,
+              }}
+            >
+              {rowsToRender.map((virtualRow) => {
+                const entity = filteredEntities[virtualRow.index]
+                if (!entity) return null
+
+                return (
+                  <div
+                    key={entity.id ?? virtualRow.key}
+                    className="absolute left-0 top-0 w-full"
+                    style={{ transform: `translateY(${virtualRow.start}px)` }}
+                  >
+                    <EntitySheetRow
+                      entity={entity}
+                      attributeIds={attributes.map((a) => a.id)}
+                      attributes={attributes}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
 

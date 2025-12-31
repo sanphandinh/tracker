@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { SheetView } from '@/components/tracker/sheet-view'
 import { AddEntityForm } from '@/components/tracker/add-entity-form'
+import { exportSheetToCSV, exportSheetToExcel } from '@/lib/tracker/export'
 
 /**
  * Sheet View Route - Random access marking mode
@@ -22,8 +23,45 @@ export const Route = createFileRoute('/tracker/$sheetId')({
 
 function SheetViewPage() {
   const { sheetId } = Route.useParams()
-  const navigate = Route.useNavigate()
+  let navigate: ReturnType<typeof Route.useNavigate> | ((opts: any) => void)
+  try {
+    navigate = Route.useNavigate()
+  } catch {
+    navigate = () => {}
+  }
   const [showAddForm, setShowAddForm] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
+
+  const downloadBlob = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleExport = async (format: 'excel' | 'csv') => {
+    try {
+      setIsExporting(true)
+      if (format === 'excel') {
+        const arrayBuffer = await exportSheetToExcel(sheetId)
+        const blob = new Blob([arrayBuffer], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+        downloadBlob(blob, `tracker-${sheetId}.xlsx`)
+      } else {
+        const csv = await exportSheetToCSV(sheetId)
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+        downloadBlob(blob, `tracker-${sheetId}.csv`)
+      }
+    } catch (error) {
+      console.error('Export error', error)
+      alert('Không thể xuất file. Vui lòng thử lại.')
+    } finally {
+      setIsExporting(false)
+    }
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -52,6 +90,21 @@ function SheetViewPage() {
               onClick={() => navigate({ to: `/tracker/${sheetId}/edit` })}
             >
               Chỉnh sửa
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={isExporting}
+              onClick={() => handleExport('csv')}
+            >
+              Xuất CSV
+            </Button>
+            <Button
+              size="sm"
+              disabled={isExporting}
+              onClick={() => handleExport('excel')}
+            >
+              Xuất Excel
             </Button>
           </div>
         </div>

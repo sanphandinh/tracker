@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrackerIndexRouteImport } from './routes/tracker/index'
+import { Route as TrackerSettingsRouteImport } from './routes/tracker/settings'
 import { Route as TrackerNewRouteImport } from './routes/tracker/new'
 import { Route as TrackerBackupRouteImport } from './routes/tracker/backup'
 import { Route as TrackerSheetIdRouteImport } from './routes/tracker/$sheetId'
@@ -50,6 +51,11 @@ const IndexRoute = IndexRouteImport.update({
 const TrackerIndexRoute = TrackerIndexRouteImport.update({
   id: '/tracker/',
   path: '/tracker/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerSettingsRoute = TrackerSettingsRouteImport.update({
+  id: '/tracker/settings',
+  path: '/tracker/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackerNewRoute = TrackerNewRouteImport.update({
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker/settings': typeof TrackerSettingsRoute
   '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
@@ -250,6 +257,7 @@ export interface FileRoutesByTo {
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker/settings': typeof TrackerSettingsRoute
   '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
   '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
+  '/tracker/settings': typeof TrackerSettingsRoute
   '/tracker/': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/api/available-providers': typeof DemoApiAvailableProvidersRoute
@@ -321,6 +330,7 @@ export interface FileRouteTypes {
     | '/tracker/$sheetId'
     | '/tracker/backup'
     | '/tracker/new'
+    | '/tracker/settings'
     | '/tracker'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
@@ -355,6 +365,7 @@ export interface FileRouteTypes {
     | '/tracker/$sheetId'
     | '/tracker/backup'
     | '/tracker/new'
+    | '/tracker/settings'
     | '/tracker'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
@@ -389,6 +400,7 @@ export interface FileRouteTypes {
     | '/tracker/$sheetId'
     | '/tracker/backup'
     | '/tracker/new'
+    | '/tracker/settings'
     | '/tracker/'
     | '/api/trpc/$'
     | '/demo/api/available-providers'
@@ -424,6 +436,7 @@ export interface RootRouteChildren {
   TrackerSheetIdRoute: typeof TrackerSheetIdRouteWithChildren
   TrackerBackupRoute: typeof TrackerBackupRoute
   TrackerNewRoute: typeof TrackerNewRoute
+  TrackerSettingsRoute: typeof TrackerSettingsRoute
   TrackerIndexRoute: typeof TrackerIndexRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   DemoApiAvailableProvidersRoute: typeof DemoApiAvailableProvidersRoute
@@ -458,6 +471,13 @@ declare module '@tanstack/react-router' {
       path: '/tracker'
       fullPath: '/tracker'
       preLoaderRoute: typeof TrackerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker/settings': {
+      id: '/tracker/settings'
+      path: '/tracker/settings'
+      fullPath: '/tracker/settings'
+      preLoaderRoute: typeof TrackerSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tracker/new': {
@@ -701,6 +721,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackerSheetIdRoute: TrackerSheetIdRouteWithChildren,
   TrackerBackupRoute: TrackerBackupRoute,
   TrackerNewRoute: TrackerNewRoute,
+  TrackerSettingsRoute: TrackerSettingsRoute,
   TrackerIndexRoute: TrackerIndexRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   DemoApiAvailableProvidersRoute: DemoApiAvailableProvidersRoute,

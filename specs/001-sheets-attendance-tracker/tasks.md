@@ -207,17 +207,17 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 ### Tests for User Story 7 ⚠️
 
 - [X] T060 [P] [US7] Unit test for calculateSummary in `src/lib/tracker/calculations.test.ts`
-- [ ] T061 [P] [US7] Component test for SummaryCard in `src/components/tracker/summary-card.test.tsx`
+- [X] T061 [P] [US7] Component test for SummaryCard in `src/components/tracker/summary-card.test.tsx`
 
 ### Implementation for User Story 7
 
-- [ ] T062 [US7] Create calculations utility in `src/lib/tracker/calculations.ts` per research.md
-- [ ] T063 [US7] Implement useSummary hook in `src/hooks/tracker/useSummary.ts` using calculateSummary
-- [ ] T064 [US7] Create SummaryCard component in `src/components/tracker/summary-card.tsx` for each attribute type
-- [ ] T065 [US7] Create SummaryView component in `src/components/tracker/summary-view.tsx` with grand total
-- [ ] T066 [US7] Add drill-down to SummaryCard showing contributing entities
-- [ ] T067 [US7] Create summary route in `src/routes/tracker/$sheetId.summary.tsx`
-- [ ] T068 [P] [US7] Create Storybook story for SummaryCard in `src/components/tracker/summary-card.stories.tsx`
+- [X] T062 [US7] Create calculations utility in `src/lib/tracker/calculations.ts` per research.md
+- [X] T063 [US7] Implement useSummary hook in `src/hooks/tracker/useSummary.ts` using calculateSummary
+- [X] T064 [US7] Create SummaryCard component in `src/components/tracker/summary-card.tsx` for each attribute type
+- [X] T065 [US7] Create SummaryView component in `src/components/tracker/summary-view.tsx` with grand total
+- [X] T066 [US7] Add drill-down to SummaryCard showing contributing entities
+- [X] T067 [US7] Create summary route in `src/routes/tracker/$sheetId.summary.tsx`
+- [X] T068 [P] [US7] Create Storybook story for SummaryCard in `src/components/tracker/summary-card.stories.tsx`
 
 **Checkpoint**: Summary calculations work - users get actionable insights
 
@@ -231,16 +231,16 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 8 ⚠️
 
-- [ ] T069 [P] [US8] Unit test for attribute CRUD in `src/lib/tracker/db.test.ts` - test addAttribute, updateAttribute, deleteAttribute
-- [ ] T070 [P] [US8] Component test for EditSheet in `src/components/tracker/edit-sheet.test.tsx`
+- [X] T069 [P] [US8] Unit test for attribute CRUD in `src/lib/tracker/db.test.ts` - test addAttribute, updateAttribute, deleteAttribute
+- [X] T070 [P] [US8] Component test for EditSheet in `src/components/tracker/edit-sheet.test.tsx`
 
 ### Implementation for User Story 8
 
-- [ ] T071 [US8] Implement attribute CRUD functions in `src/lib/tracker/db.ts` (addAttribute, updateAttribute, deleteAttribute)
-- [ ] T072 [US8] Implement useAttributes hook in `src/hooks/tracker/useAttributes.ts`
-- [ ] T073 [US8] Create EditSheet component in `src/components/tracker/edit-sheet.tsx` with attribute management
-- [ ] T074 [US8] Add delete confirmation dialog for attribute deletion with data warning
-- [ ] T075 [US8] Create edit sheet route in `src/routes/tracker/$sheetId.edit.tsx`
+- [X] T071 [US8] Implement attribute CRUD functions in `src/lib/tracker/db.ts` (addAttribute, updateAttribute, deleteAttribute)
+- [X] T072 [US8] Implement useAttributes hook in `src/hooks/tracker/useAttributes.ts`
+- [X] T073 [US8] Create EditSheet component in `src/components/tracker/edit-sheet.tsx` with attribute management
+- [X] T074 [US8] Add delete confirmation dialog for attribute deletion with data warning
+- [X] T075 [US8] Create edit sheet route in `src/routes/tracker/$sheetId.edit.tsx`
 
 **Checkpoint**: All P2 user stories complete - app supports sheet evolution
 
@@ -254,13 +254,13 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 9 ⚠️
 
-- [ ] T076 [P] [US9] Unit test for export functions in `src/lib/tracker/export.test.ts`
+- [X] T076 [P] [US9] Unit test for export functions in `src/lib/tracker/export.test.ts`
 
 ### Implementation for User Story 9
 
-- [ ] T077 [US9] Create export utility in `src/lib/tracker/export.ts` with exportSheetToExcel, exportSheetToCSV per research.md
-- [ ] T078 [US9] Add export button to SheetView with format selector (CSV/Excel)
-- [ ] T079 [US9] Implement file download trigger for export
+- [X] T077 [US9] Create export utility in `src/lib/tracker/export.ts` with exportSheetToExcel, exportSheetToCSV per research.md
+- [X] T078 [US9] Add export button to SheetView with format selector (CSV/Excel)
+- [X] T079 [US9] Implement file download trigger for export
 
 **Checkpoint**: Single sheet export works - data portability achieved
 
@@ -274,15 +274,15 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 10 ⚠️
 
-- [ ] T080 [P] [US10] Unit test for backup/restore in `src/lib/tracker/backup.test.ts` - test createBackup, restoreBackup, data integrity
+- [X] T080 [P] [US10] Unit test for backup/restore in `src/lib/tracker/backup.test.ts` - test createBackup, restoreBackup, data integrity
 
 ### Implementation for User Story 10
 
-- [ ] T081 [US10] Create backup utility in `src/lib/tracker/backup.ts` with createBackup, restoreBackup per research.md
-- [ ] T082 [US10] Create BackupRestore component in `src/components/tracker/backup-restore.tsx`
-- [ ] T083 [US10] Add file picker for restore with validation
-- [ ] T084 [US10] Add restore confirmation with data integrity check
-- [ ] T085 [US10] Create backup route in `src/routes/tracker/backup.tsx`
+- [X] T081 [US10] Create backup utility in `src/lib/tracker/backup.ts` with createBackup, restoreBackup per research.md
+- [X] T082 [US10] Create BackupRestore component in `src/components/tracker/backup-restore.tsx`
+- [X] T083 [US10] Add file picker for restore with validation
+- [X] T084 [US10] Add restore confirmation with data integrity check
+- [X] T085 [US10] Create backup route in `src/routes/tracker/backup.tsx`
 
 **Checkpoint**: All P3 user stories complete - data safety achieved
 
@@ -292,14 +292,14 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 **Purpose**: Final refinements across all user stories
 
-- [ ] T086 [P] Add link to tracker from main app in `src/routes/index.tsx`
-- [ ] T087 [P] Create Settings page in `src/routes/tracker/settings.tsx` with backup reminder toggle
-- [ ] T088 [P] Add empty state illustrations for home screen (no sheets) and sheet view (no entities)
-- [ ] T089 Implement list virtualization for sheets with 500+ entities using @tanstack/react-virtual
-- [ ] T090 Add loading states and skeleton loaders for async operations
+- [X] T086 [P] Add link to tracker from main app in `src/routes/index.tsx`
+- [X] T087 [P] Create Settings page in `src/routes/tracker/settings.tsx` with backup reminder toggle
+- [X] T088 [P] Add empty state illustrations for home screen (no sheets) and sheet view (no entities)
+- [X] T089 Implement list virtualization for sheets with 500+ entities using @tanstack/react-virtual
+- [X] T090 Add loading states and skeleton loaders for async operations
 - [ ] T091 [P] Run quickstart.md validation - verify all manual testing checklist items pass
 - [ ] T092 Performance audit: verify cell toggle <100ms, sheet load <2s for 500 entities
-- [ ] T093 [P] Update public/manifest.json with tracker app details
+- [X] T093 [P] Update public/manifest.json with tracker app details
 - [ ] T094 Final accessibility audit: verify 44px touch targets, ARIA labels, keyboard navigation
 
 ---
