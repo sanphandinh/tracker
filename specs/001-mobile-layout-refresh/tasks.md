@@ -17,9 +17,9 @@
 
 **Purpose**: Initial project configuration and CSS foundation
 
-- [ ] T001 Add CSS custom properties for safe areas, breakpoints, and spacing tokens in src/styles.css
-- [ ] T002 [P] Define Tailwind v4 theme extensions for tracker palette, typography scale (16px base, 14px min), and shadows in src/styles.css
-- [ ] T003 [P] Add viewport meta tag with safe-area-inset support in root HTML template
+- [x] T001 Add CSS custom properties for safe areas, breakpoints, and spacing tokens in src/styles.css
+- [x] T002 [P] Define Tailwind v4 theme extensions for tracker palette, typography scale (16px base, 14px min), and shadows in src/styles.css
+- [x] T003 [P] Add viewport meta tag with safe-area-inset support in root HTML template
 
 ---
 
@@ -29,11 +29,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create LayoutShell component with safe-area padding and theme support in src/components/tracker/layout-shell.tsx
-- [ ] T005 [P] Add layout shell Vitest test (render, safe-area props, theme toggle) in src/components/tracker/layout-shell.test.tsx
-- [ ] T006 Update root route to use LayoutShell wrapper in src/routes/__root.tsx
-- [ ] T007 [P] Create responsive ContentRegion component with single-column/two-pane modes in src/components/tracker/content-region.tsx
-- [ ] T008 [P] Add content region Vitest test (breakpoint switching at 768px, no horizontal scroll at 320px) in src/components/tracker/content-region.test.tsx
+- [x] T004 Create LayoutShell component with safe-area padding and theme support in src/components/tracker/layout-shell.tsx
+- [x] T005 [P] Add layout shell Vitest test (render, safe-area props, theme toggle) in src/components/tracker/layout-shell.test.tsx
+- [x] T006 Update root route to use LayoutShell wrapper in src/routes/__root.tsx
+- [x] T007 [P] Create responsive ContentRegion component with single-column/two-pane modes in src/components/tracker/content-region.tsx
+- [x] T008 [P] Add content region Vitest test (breakpoint switching at 768px, no horizontal scroll at 320px) in src/components/tracker/content-region.test.tsx
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -47,16 +47,16 @@
 
 ### Tests for User Story 1 (MANDATORY for UI components)
 
-- [ ] T009 [P] [US1] Create NavigationItem Storybook story with active/inactive/badge states in src/components/storybook/navigation-item.stories.ts
-- [ ] T010 [P] [US1] Create PrimaryAction Storybook story with light/dark/placement variants in src/components/storybook/primary-action.stories.ts
-- [ ] T011 [P] [US1] Add NavigationZone Vitest test (3 items rendered, ≥44px height, active highlighting, keyboard nav) in src/components/tracker/navigation-zone.test.tsx
-- [ ] T012 [P] [US1] Add PrimaryAction Vitest test (≥48px hitbox, safe-area offset, no content overlap) in src/components/tracker/primary-action.test.tsx
+- [x] T009 [P] [US1] Create NavigationItem Storybook story with active/inactive/badge states in src/components/storybook/navigation-item.stories.ts
+- [x] T010 [P] [US1] Create PrimaryAction Storybook story with light/dark/placement variants in src/components/storybook/primary-action.stories.ts
+- [x] T011 [P] [US1] Add NavigationZone Vitest test (3 items rendered, ≥44px height, active highlighting, keyboard nav) in src/components/tracker/navigation-zone.test.tsx
+- [x] T012 [P] [US1] Add PrimaryAction Vitest test (≥48px hitbox, safe-area offset, no content overlap) in src/components/tracker/primary-action.test.tsx
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Create NavigationItem component with icon, label, route, badge support in src/components/tracker/navigation-item.tsx
-- [ ] T014 [P] [US1] Create PrimaryAction component with floating-bottom placement and safe-area offset in src/components/tracker/primary-action.tsx
-- [ ] T015 [US1] Create NavigationZone component with 3 persistent items (Home, Sheets, Settings) and bottom-fixed layout in src/components/tracker/navigation-zone.tsx
+- [x] T013 [P] [US1] Create NavigationItem component with icon, label, route, badge support in src/components/tracker/navigation-item.tsx
+- [x] T014 [P] [US1] Create PrimaryAction component with floating-bottom placement and safe-area offset in src/components/tracker/primary-action.tsx
+- [x] T015 [US1] Create NavigationZone component with 3 persistent items (Home, Sheets, Settings) and bottom-fixed layout in src/components/tracker/navigation-zone.tsx
 - [ ] T016 [US1] Integrate NavigationZone into LayoutShell with 56px height and space-between alignment in src/components/tracker/layout-shell.tsx
 - [ ] T017 [US1] Integrate PrimaryAction (Create) into LayoutShell with bottom-right anchor in src/components/tracker/layout-shell.tsx
 - [ ] T018 [US1] Wire NavigationItem active state from TanStack Router useMatchRoute hook in src/components/tracker/navigation-item.tsx
