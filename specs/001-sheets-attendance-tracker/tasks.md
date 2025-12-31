@@ -297,10 +297,10 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 - [X] T088 [P] Add empty state illustrations for home screen (no sheets) and sheet view (no entities)
 - [X] T089 Implement list virtualization for sheets with 500+ entities using @tanstack/react-virtual
 - [X] T090 Add loading states and skeleton loaders for async operations
-- [ ] T091 [P] Run quickstart.md validation - verify all manual testing checklist items pass
-- [ ] T092 Performance audit: verify cell toggle <100ms, sheet load <2s for 500 entities
+- [X] T091 [P] Run quickstart.md validation - verify all manual testing checklist items pass
+- [X] T092 Performance audit: verify cell toggle <100ms, sheet load <2s for 500 entities
 - [X] T093 [P] Update public/manifest.json with tracker app details
-- [ ] T094 Final accessibility audit: verify 44px touch targets, ARIA labels, keyboard navigation
+- [X] T094 Final accessibility audit: verify 44px touch targets, ARIA labels, keyboard navigation
 
 ---
 
