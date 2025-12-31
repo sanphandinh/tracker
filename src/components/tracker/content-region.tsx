@@ -106,7 +106,6 @@ export function ContentRegion({
     }
   }, [])
 
-  const isSingleColumn = effectiveLayoutMode === 'single-column' || !isTablet
   const isTwoPane = effectiveLayoutMode === 'two-pane' && isTablet && listPane && detailPane
 
   return (

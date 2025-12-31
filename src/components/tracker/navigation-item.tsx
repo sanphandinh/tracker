@@ -40,7 +40,7 @@ export function NavigationItem({
   // Safely call useMatchRoute - it may fail in test environments without RouterProvider
   try {
     const matchRoute = useMatchRoute()
-    isActive = matchRoute({ to: route, fuzzy: true })
+    isActive = Boolean(matchRoute({ to: route, fuzzy: true }))
   } catch (error) {
     // In test/SSR environments without router context, default to false
     isActive = false

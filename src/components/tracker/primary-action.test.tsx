@@ -53,8 +53,8 @@ describe('PrimaryAction', () => {
     expect(button).toHaveClass('h-16', 'w-16', 'min-h-16', 'min-w-16')
   })
 
-  it('renders with icon', () => {
-    const { container } = render(<PrimaryAction icon={<span data-testid="icon">✨</span>} />)
+  it('should render with icon as ReactNode', () => {
+    render(<PrimaryAction icon={<span data-testid="icon">✨</span>} />)
 
     const icon = screen.getByTestId('icon')
     expect(icon).toBeInTheDocument()
@@ -170,7 +170,7 @@ describe('PrimaryAction', () => {
   })
 
   it('shows label only on lg size', () => {
-    const { rerender, container } = render(
+    const { rerender } = render(
       <PrimaryAction label="Create" size="sm" />,
     )
 

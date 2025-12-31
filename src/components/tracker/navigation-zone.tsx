@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import { NavigationItem, type NavigationItemProps } from './navigation-item'
 
