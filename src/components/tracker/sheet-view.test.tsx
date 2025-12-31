@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, within, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SheetView } from './sheet-view'
 import type { Entity, Attribute } from '@/lib/tracker/types'
@@ -85,7 +85,7 @@ describe('SheetView', () => {
 
   it('updates cell value when clicked', async () => {
     const updateCellMock = vi.fn().mockResolvedValue(undefined)
-    mockUseCellValues.mockImplementation((entityId: string) => ({
+    mockUseCellValues.mockImplementation((_entityId: string) => ({
       getCellValue: vi.fn(() => null),
       updateCell: updateCellMock,
       isPending: false,
@@ -134,7 +134,6 @@ describe('SheetView', () => {
   })
 
   it('maintains scroll position when updating cells', async () => {
-    const user = userEvent.setup()
     const { container } = render(<SheetView sheetId="sheet-1" />)
 
     // Simulate scroll

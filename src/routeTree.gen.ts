@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrackerIndexRouteImport } from './routes/tracker/index'
 import { Route as TrackerNewRouteImport } from './routes/tracker/new'
+import { Route as TrackerBackupRouteImport } from './routes/tracker/backup'
 import { Route as TrackerSheetIdRouteImport } from './routes/tracker/$sheetId'
 import { Route as DemoTrpcTodoRouteImport } from './routes/demo/trpc-todo'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
@@ -21,7 +22,9 @@ import { Route as DemoStorybookRouteImport } from './routes/demo/storybook'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoImageRouteImport } from './routes/demo/image'
 import { Route as ExampleGuitarsIndexRouteImport } from './routes/example.guitars/index'
+import { Route as TrackerSheetIdSummaryRouteImport } from './routes/tracker/$sheetId.summary'
 import { Route as TrackerSheetIdMarkRouteImport } from './routes/tracker/$sheetId.mark'
+import { Route as TrackerSheetIdEditRouteImport } from './routes/tracker/$sheetId.edit'
 import { Route as ExampleGuitarsGuitarIdRouteImport } from './routes/example.guitars/$guitarId'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
@@ -52,6 +55,11 @@ const TrackerIndexRoute = TrackerIndexRouteImport.update({
 const TrackerNewRoute = TrackerNewRouteImport.update({
   id: '/tracker/new',
   path: '/tracker/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerBackupRoute = TrackerBackupRouteImport.update({
+  id: '/tracker/backup',
+  path: '/tracker/backup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackerSheetIdRoute = TrackerSheetIdRouteImport.update({
@@ -99,9 +107,19 @@ const ExampleGuitarsIndexRoute = ExampleGuitarsIndexRouteImport.update({
   path: '/example/guitars/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackerSheetIdSummaryRoute = TrackerSheetIdSummaryRouteImport.update({
+  id: '/summary',
+  path: '/summary',
+  getParentRoute: () => TrackerSheetIdRoute,
+} as any)
 const TrackerSheetIdMarkRoute = TrackerSheetIdMarkRouteImport.update({
   id: '/mark',
   path: '/mark',
+  getParentRoute: () => TrackerSheetIdRoute,
+} as any)
+const TrackerSheetIdEditRoute = TrackerSheetIdEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
   getParentRoute: () => TrackerSheetIdRoute,
 } as any)
 const ExampleGuitarsGuitarIdRoute = ExampleGuitarsGuitarIdRouteImport.update({
@@ -196,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
+  '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
   '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
@@ -210,7 +229,9 @@ export interface FileRoutesByFullPath {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/tracker/$sheetId/edit': typeof TrackerSheetIdEditRoute
   '/tracker/$sheetId/mark': typeof TrackerSheetIdMarkRoute
+  '/tracker/$sheetId/summary': typeof TrackerSheetIdSummaryRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
@@ -227,6 +248,7 @@ export interface FileRoutesByTo {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
+  '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
   '/tracker': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
@@ -241,7 +263,9 @@ export interface FileRoutesByTo {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/tracker/$sheetId/edit': typeof TrackerSheetIdEditRoute
   '/tracker/$sheetId/mark': typeof TrackerSheetIdMarkRoute
+  '/tracker/$sheetId/summary': typeof TrackerSheetIdSummaryRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
@@ -259,6 +283,7 @@ export interface FileRoutesById {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
   '/tracker/$sheetId': typeof TrackerSheetIdRouteWithChildren
+  '/tracker/backup': typeof TrackerBackupRoute
   '/tracker/new': typeof TrackerNewRoute
   '/tracker/': typeof TrackerIndexRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
@@ -273,7 +298,9 @@ export interface FileRoutesById {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/tracker/$sheetId/edit': typeof TrackerSheetIdEditRoute
   '/tracker/$sheetId/mark': typeof TrackerSheetIdMarkRoute
+  '/tracker/$sheetId/summary': typeof TrackerSheetIdSummaryRoute
   '/example/guitars/': typeof ExampleGuitarsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
@@ -292,6 +319,7 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
+    | '/tracker/backup'
     | '/tracker/new'
     | '/tracker'
     | '/api/trpc/$'
@@ -306,7 +334,9 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/tracker/$sheetId/edit'
     | '/tracker/$sheetId/mark'
+    | '/tracker/$sheetId/summary'
     | '/example/guitars'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
@@ -323,6 +353,7 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
+    | '/tracker/backup'
     | '/tracker/new'
     | '/tracker'
     | '/api/trpc/$'
@@ -337,7 +368,9 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/tracker/$sheetId/edit'
     | '/tracker/$sheetId/mark'
+    | '/tracker/$sheetId/summary'
     | '/example/guitars'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
@@ -354,6 +387,7 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
     | '/tracker/$sheetId'
+    | '/tracker/backup'
     | '/tracker/new'
     | '/tracker/'
     | '/api/trpc/$'
@@ -368,7 +402,9 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/tracker/$sheetId/edit'
     | '/tracker/$sheetId/mark'
+    | '/tracker/$sheetId/summary'
     | '/example/guitars/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
@@ -386,6 +422,7 @@ export interface RootRouteChildren {
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoTrpcTodoRoute: typeof DemoTrpcTodoRoute
   TrackerSheetIdRoute: typeof TrackerSheetIdRouteWithChildren
+  TrackerBackupRoute: typeof TrackerBackupRoute
   TrackerNewRoute: typeof TrackerNewRoute
   TrackerIndexRoute: typeof TrackerIndexRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
@@ -428,6 +465,13 @@ declare module '@tanstack/react-router' {
       path: '/tracker/new'
       fullPath: '/tracker/new'
       preLoaderRoute: typeof TrackerNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker/backup': {
+      id: '/tracker/backup'
+      path: '/tracker/backup'
+      fullPath: '/tracker/backup'
+      preLoaderRoute: typeof TrackerBackupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tracker/$sheetId': {
@@ -493,11 +537,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleGuitarsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tracker/$sheetId/summary': {
+      id: '/tracker/$sheetId/summary'
+      path: '/summary'
+      fullPath: '/tracker/$sheetId/summary'
+      preLoaderRoute: typeof TrackerSheetIdSummaryRouteImport
+      parentRoute: typeof TrackerSheetIdRoute
+    }
     '/tracker/$sheetId/mark': {
       id: '/tracker/$sheetId/mark'
       path: '/mark'
       fullPath: '/tracker/$sheetId/mark'
       preLoaderRoute: typeof TrackerSheetIdMarkRouteImport
+      parentRoute: typeof TrackerSheetIdRoute
+    }
+    '/tracker/$sheetId/edit': {
+      id: '/tracker/$sheetId/edit'
+      path: '/edit'
+      fullPath: '/tracker/$sheetId/edit'
+      preLoaderRoute: typeof TrackerSheetIdEditRouteImport
       parentRoute: typeof TrackerSheetIdRoute
     }
     '/example/guitars/$guitarId': {
@@ -616,11 +674,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface TrackerSheetIdRouteChildren {
+  TrackerSheetIdEditRoute: typeof TrackerSheetIdEditRoute
   TrackerSheetIdMarkRoute: typeof TrackerSheetIdMarkRoute
+  TrackerSheetIdSummaryRoute: typeof TrackerSheetIdSummaryRoute
 }
 
 const TrackerSheetIdRouteChildren: TrackerSheetIdRouteChildren = {
+  TrackerSheetIdEditRoute: TrackerSheetIdEditRoute,
   TrackerSheetIdMarkRoute: TrackerSheetIdMarkRoute,
+  TrackerSheetIdSummaryRoute: TrackerSheetIdSummaryRoute,
 }
 
 const TrackerSheetIdRouteWithChildren = TrackerSheetIdRoute._addFileChildren(
@@ -637,6 +699,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoTrpcTodoRoute: DemoTrpcTodoRoute,
   TrackerSheetIdRoute: TrackerSheetIdRouteWithChildren,
+  TrackerBackupRoute: TrackerBackupRoute,
   TrackerNewRoute: TrackerNewRoute,
   TrackerIndexRoute: TrackerIndexRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,

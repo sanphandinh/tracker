@@ -206,7 +206,7 @@ Based on plan.md structure - single project extending TanStack Start boilerplate
 
 ### Tests for User Story 7 ⚠️
 
-- [ ] T060 [P] [US7] Unit test for calculateSummary in `src/lib/tracker/calculations.test.ts`
+- [X] T060 [P] [US7] Unit test for calculateSummary in `src/lib/tracker/calculations.test.ts`
 - [ ] T061 [P] [US7] Component test for SummaryCard in `src/components/tracker/summary-card.test.tsx`
 
 ### Implementation for User Story 7

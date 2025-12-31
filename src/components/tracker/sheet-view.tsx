@@ -30,7 +30,7 @@ interface SheetViewProps {
  * - Headers: attribute names with type indicators
  */
 export function SheetView({ sheetId, className }: SheetViewProps) {
-  const { sheet, entities, attributes, isLoading, error } = useSheet(sheetId)
+  const { sheet: _sheet, entities, attributes, isLoading, error } = useSheet(sheetId)
   const [searchQuery, setSearchQuery] = useState('')
 
   /**
@@ -134,7 +134,7 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
  */
 function EntitySheetRow({
   entity,
-  attributeIds,
+  attributeIds: _attributeIds,
   attributes,
 }: {
   entity: Entity

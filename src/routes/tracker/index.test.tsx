@@ -4,9 +4,8 @@ import userEvent from '@testing-library/user-event'
 import { TrackerHome } from './index'
 import type { TrackingSheet } from '@/lib/tracker/types'
 
-// Mock the hooks
+// Mock hooks using vi.hoisted for proper initialization order
 const mockUseSheets = vi.hoisted(() => vi.fn())
-const mockUseEntities = vi.hoisted(() => vi.fn())
 
 vi.mock('@/hooks/tracker/useSheets', () => ({
   useSheets: mockUseSheets,
@@ -151,7 +150,6 @@ describe('TrackerHome', () => {
     const user = userEvent.setup()
     render(<TrackerHome />)
 
-    const createButton = screen.getByText(/tạo bảng|create/i)
     await user.keyboard('{Tab}')
     // Should navigate between buttons/cards with Tab key
   })

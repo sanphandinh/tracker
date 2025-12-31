@@ -123,6 +123,11 @@ export const AllAttributeTypes: Story = {
  * Group of different sheets
  */
 export const CardGrid: Story = {
+  args: {
+    sheet: createSheet({ name: 'Lớp 10A' }),
+    entityCount: 30,
+    attributeCount: 5,
+  },
   render: () => (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {[

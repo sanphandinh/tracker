@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { Card } from '@/components/ui/card'
 import type { TrackingSheet } from '@/lib/tracker/types'
 
 interface SheetCardProps {
