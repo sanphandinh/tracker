@@ -36,6 +36,12 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const parentRef = useRef<HTMLDivElement>(null)
 
+  const columnTemplate = useMemo(() => {
+    const cols = ['minmax(168px, 1.1fr)']
+    attributes.forEach(() => cols.push('minmax(96px, 0.95fr)'))
+    return cols.join(' ')
+  }, [attributes])
+
   /**
    * Filter entities by search query
    */
@@ -119,30 +125,28 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
       )}
 
       {/* Grid container */}
-      <div className="overflow-x-auto px-4 pb-4">
-        <div className="min-w-max">
-          {/* Header row */}
-          <div className="mb-2 flex gap-2 rounded-t-lg bg-muted/50">
-            {/* Entity name column header */}
-            <div className="sticky left-0 z-20 flex min-w-48 items-center gap-2 rounded-tl-lg bg-muted/70 px-3 py-2 font-medium">
-              Tên thành viên
+      <div className="px-4 pb-4">
+        <div
+          ref={parentRef}
+          className="max-h-[70vh] overflow-auto rounded-lg border border-border bg-background shadow-sm"
+        >
+          <div className="min-w-full">
+            {/* Header row */}
+            <div
+              className="sticky top-0 z-20 grid items-center gap-2 border-b border-border bg-muted/80 px-3 py-2 text-xs font-medium backdrop-blur"
+              style={{ gridTemplateColumns: columnTemplate }}
+            >
+              <div className="sticky left-0 z-30 flex items-center gap-2 bg-muted/90 pr-3 text-left">
+                Tên thành viên
+              </div>
+
+              {attributes.map((attr) => (
+                <div key={attr.id} className="flex items-center justify-center px-1">
+                  <AttributeHeader attribute={attr} className="text-center text-xs" />
+                </div>
+              ))}
             </div>
 
-            {/* Attribute column headers */}
-            {attributes.map((attr) => (
-              <div
-                key={attr.id}
-                className="flex min-w-max items-center justify-center gap-1 px-2 py-2"
-              >
-                <AttributeHeader attribute={attr} className="w-20 text-center text-xs" />
-              </div>
-            ))}
-          </div>
-
-          <div
-            ref={parentRef}
-            className="max-h-[70vh] overflow-auto rounded-b-lg border border-border"
-          >
             <div
               className="relative"
               style={{
@@ -163,6 +167,7 @@ export function SheetView({ sheetId, className }: SheetViewProps) {
                       entity={entity}
                       attributeIds={attributes.map((a) => a.id)}
                       attributes={attributes}
+                      columnTemplate={columnTemplate}
                     />
                   </div>
                 )
@@ -189,18 +194,24 @@ function EntitySheetRow({
   entity,
   attributeIds: _attributeIds,
   attributes,
+  columnTemplate,
 }: {
   entity: Entity
   attributeIds: string[]
   attributes: any[]
+  columnTemplate: string
 }) {
   const { getCellValue, updateCell, isPending } = useCellValues(entity.id)
 
   return (
-    <div className="flex gap-2 border-b border-border py-2 last:border-b-0" data-entity={entity.id}>
+    <div
+      className="grid items-stretch border-b border-border px-1 py-2 last:border-b-0"
+      style={{ gridTemplateColumns: columnTemplate }}
+      data-entity={entity.id}
+    >
       {/* Entity name column (sticky) */}
-      <div className="sticky left-0 z-10 flex min-w-48 items-center bg-background px-3 py-2">
-        <span className="truncate text-sm font-medium">{entity.name}</span>
+      <div className="sticky left-0 z-10 flex items-center gap-2 bg-background px-3 text-sm font-medium shadow-[4px_0_6px_-4px_rgba(0,0,0,0.12)]">
+        <span className="line-clamp-2 leading-snug">{entity.name}</span>
       </div>
 
       {/* Cell inputs */}
@@ -208,16 +219,13 @@ function EntitySheetRow({
         const cellValue = getCellValue(attribute.id)
 
         return (
-          <div
-            key={attribute.id}
-            className="flex min-w-max items-center justify-center px-2 py-2"
-          >
+          <div key={attribute.id} className="flex items-center justify-center px-1">
             <CellInput
               attribute={attribute}
               value={cellValue}
               onChange={(newValue) => updateCell(attribute.id, newValue)}
               disabled={isPending}
-              className="min-h-11 min-w-14"
+              className="min-h-11 w-full max-w-[108px]"
             />
           </div>
         )

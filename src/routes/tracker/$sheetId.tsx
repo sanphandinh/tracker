@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet, useLocation, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { SheetView } from '@/components/tracker/sheet-view'
@@ -23,14 +23,12 @@ export const Route = createFileRoute('/tracker/$sheetId')({
 
 function SheetViewPage() {
   const { sheetId } = Route.useParams()
-  let navigate: ReturnType<typeof Route.useNavigate> | ((opts: any) => void)
-  try {
-    navigate = Route.useNavigate()
-  } catch {
-    navigate = () => {}
-  }
+  const navigate = useNavigate();
+  const location = useLocation()
   const [showAddForm, setShowAddForm] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
+
+  const isChildRoute = /\/(mark|summary|edit)(\/)?$/.test(location.pathname)
 
   const downloadBlob = (blob: Blob, filename: string) => {
     const url = URL.createObjectURL(blob)
@@ -63,49 +61,67 @@ function SheetViewPage() {
     }
   }
 
+  if (isChildRoute) {
+    return <Outlet />
+  }
+
   return (
     <div className="flex flex-col gap-4">
       {/* Header with navigation */}
       <div className="flex flex-col gap-3 bg-background px-4 py-3 border-b border-border sticky top-0 z-40">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-col gap-3">
           <h1 className="text-xl font-bold">Bảng theo dõi</h1>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate({ to: `/tracker/${sheetId}/mark` })}
-            >
-              Đánh dấu tuần tự
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate({ to: `/tracker/${sheetId}/summary` })}
-            >
-              Tổng hợp
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate({ to: `/tracker/${sheetId}/edit` })}
-            >
-              Chỉnh sửa
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={isExporting}
-              onClick={() => handleExport('csv')}
-            >
-              Xuất CSV
-            </Button>
-            <Button
-              size="sm"
-              disabled={isExporting}
-              onClick={() => handleExport('excel')}
-            >
-              Xuất Excel
-            </Button>
+          
+          {/* Action buttons - responsive layout */}
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
+            {/* Navigation actions */}
+            <div className="flex gap-2 flex-1">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate({ to: `/tracker/${sheetId}/mark` })}
+                className="flex-1 sm:flex-none"
+              >
+                Đánh dấu tuần tự
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate({ to: `/tracker/${sheetId}/summary` })}
+                className="flex-1 sm:flex-none"
+              >
+                Tổng hợp
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate({ to: `/tracker/${sheetId}/edit` })}
+                className="flex-1 sm:flex-none"
+              >
+                Chỉnh sửa
+              </Button>
+            </div>
+            
+            {/* Export actions */}
+            <div className="flex gap-2 flex-1">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={isExporting}
+                onClick={() => handleExport('csv')}
+                className="flex-1 sm:flex-none"
+              >
+                Xuất CSV
+              </Button>
+              <Button
+                size="sm"
+                disabled={isExporting}
+                onClick={() => handleExport('excel')}
+                className="flex-1 sm:flex-none"
+              >
+                Xuất Excel
+              </Button>
+            </div>
           </div>
         </div>
 
